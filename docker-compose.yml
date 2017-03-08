@@ -5,7 +5,7 @@ services:
         network_mode: host
         volumes:
             - ./api:/usr/src/app
-        command: "/bin/bash -c \"cd /usr/src/app && pip install -r requirements.txt && python -u app.py\""
+        command: "/bin/bash -c \"cd /usr/src/app && pip install -r requirements.txt && python -u manager.py runserver\""
         depends_on:
             - postgres
             - nginx
