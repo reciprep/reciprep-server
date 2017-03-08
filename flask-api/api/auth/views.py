@@ -3,9 +3,9 @@
 from flask import Blueprint, request, make_response, jsonify, g
 from flask.views import MethodView
 
-from server import bcrypt, db
-from server.models import User
-from server.auth.check import is_logged_in
+from api import bcrypt, db
+from api.models import User
+from api.auth.check import is_logged_in
 
 auth_blueprint = Blueprint('auth', __name__)
 

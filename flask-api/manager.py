@@ -2,7 +2,7 @@
 
 from flask_script import Manager
 
-from server import app, db, bcrypt
+from api import app, db, bcrypt
 
 manager = Manager(app)
 
