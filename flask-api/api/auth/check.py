@@ -1,6 +1,8 @@
 from flask import Blueprint, request, make_response, jsonify, g
 from functools import wraps
 
+from api.models import User
+
 """
 Decorators for checking client auth status
 """
@@ -21,6 +23,7 @@ def is_logged_in(f):
             if auth_token:
                 resp = User.decode_auth_token(auth_token)
                 if not isinstance(resp, str):
+                    g.auth_token = auth_token
                     return f(*args, **kwargs)
                 responseObject = {
                     'status': 'fail',

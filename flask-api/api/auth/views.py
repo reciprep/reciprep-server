@@ -50,7 +50,7 @@ class RegisterAPI(MethodView):
         else:
             responseObject = {
                 'status': 'fail',
-                'message': 'User already exists. Please Log in.',
+                'message': 'User already exists. Please log in.',
             }
             return make_response(jsonify(responseObject)), 202
 
@@ -65,7 +65,6 @@ class LoginAPI(MethodView):
         try:
             # fetch the user data
             user = User.query.filter_by(
-                email=post_data.get('email'),
                 username=post_data.get('username')
             ).first()
             if user and bcrypt.check_password_hash(
@@ -103,8 +102,8 @@ class UserAPI(MethodView):
     decorators = [is_logged_in]
 
     def get(self):
-        resp = User.decode_auth_token(auth_token)
-        user = User.query.filter_by(id=resp).first()
+        user_id = User.decode_auth_token(g.auth_token)
+        user = User.query.filter_by(id=user_id).first()
         responseObject = {
             'status': 'success',
             'data': {

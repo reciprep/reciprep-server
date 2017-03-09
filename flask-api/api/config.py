@@ -19,23 +19,20 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name
-    # JWT_EXPIRATION_DAYS = 0
-    # JWT_EXPIRATION_SECONDS = 60
+
+class TestingConfig(BaseConfig):
+    """Testing configuration."""
+    DEBUG = True
+    TESTING = True
+    BCRYPT_LOG_ROUNDS = 4
+    SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name + '_test'
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
 
 
-# class TestingConfig(BaseConfig):
-#     """Testing configuration."""
-#     DEBUG = True
-#     TESTING = True
-#     BCRYPT_LOG_ROUNDS = 4
-#     SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name + '_test'
-#     PRESERVE_CONTEXT_ON_EXCEPTION = False
-
-
-class ProductionConfig(BaseConfig):
-    """Production configuration."""
-    SECRET_KEY = 'koulopoulos'
-    DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'postgresql:///example'
-    JWT_EXPIRATION_DAYS = 7
-    JWT_EXPIRATION_SECONDS = 0
+# class ProductionConfig(BaseConfig):
+#     """Production configuration."""
+#     SECRET_KEY = 'koulopoulos'
+#     DEBUG = False
+#     SQLALCHEMY_DATABASE_URI = 'postgresql:///example'
+#     JWT_EXPIRATION_DAYS = 7
+#     JWT_EXPIRATION_SECONDS = 0
