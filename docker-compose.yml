@@ -1,0 +1,21 @@
+version: '2'
+services:
+    reciprep-api:
+        image: python:3.6
+        network_mode: host
+        volumes:
+            - ./flask-api:/usr/src/app
+        command: "/bin/bash -c \"cd /usr/src/app && pip install -r requirements.txt && python -u manager.py create_db && python -u manager.py runserver\""
+        depends_on:
+            - postgres
+            - nginx
+    postgres:
+        image: postgres:alpine
+        network_mode: host
+        volumes:
+            - ./dbdata:/var/lib/postgresql/data
+    nginx:
+        image: nginx:alpine
+        network_mode: host
+        volumes:
+            - ./nginx:/etc/nginx
