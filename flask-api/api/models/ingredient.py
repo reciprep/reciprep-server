@@ -2,8 +2,8 @@ from enum import Enum
 from api import app, db, bcrypt
 
 class MeasurementEnum(Enum):
-    MASS = 'kilogram'
-    VOLUME = 'liter'
+    MASS = 'mass'
+    VOLUME = 'volume'
     COUNT = 'count'
 
 class Ingredient(db.Model):
