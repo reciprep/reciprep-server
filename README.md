@@ -11,14 +11,20 @@ bin/vagrant.bat
 
 For Linux / OSX / Windows:
 
-Create the database:
+Create the databases:
 ```
-docker-compose up postgres
+docker-compose up postgres &
 bash bin/psql-init
+bash bin/psql-test-init
 docker-compose down
 ```
 
 Start the services:
 ```
 docker-compose up
+```
+
+To run API tests:
+```
+docker-compose -f docker-test.yml up
 ```

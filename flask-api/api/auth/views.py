@@ -5,7 +5,7 @@ from flask.views import MethodView
 
 from api import bcrypt, db
 from api.models import User
-from api.auth.check import is_logged_in
+from api.decorators import is_logged_in
 
 auth_blueprint = Blueprint('auth', __name__)
 
