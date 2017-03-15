@@ -4,7 +4,7 @@ from flask import Blueprint, request, make_response, jsonify, g
 from flask.views import MethodView
 
 from api import bcrypt, db
-from api.models import User
+from api.models.user import User
 from api.decorators import is_logged_in
 
 auth_blueprint = Blueprint('auth', __name__)
@@ -102,7 +102,7 @@ class UserAPI(MethodView):
     decorators = [is_logged_in]
 
     def get(self):
-        user_id = User.decode_auth_token(g.auth_token)
+        user_id = g.user_id
         user = User.query.filter_by(id=user_id).first()
         responseObject = {
             'status': 'success',

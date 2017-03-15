@@ -3,7 +3,7 @@ import json
 import unittest
 
 from api import db
-from api.models import User
+from api.models.user import User
 from tests.base_test_case import BaseTestCase
 
 from tests.helpers import req_user_login, req_user_register, req_user_status

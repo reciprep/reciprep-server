@@ -1,8 +1,8 @@
 import jwt
 import datetime
+from enum import Enum
 
 from api import app, db, bcrypt
-
 
 class User(db.Model):
     """ User Model for storing user related details """
