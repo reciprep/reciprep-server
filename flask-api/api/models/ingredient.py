@@ -18,3 +18,6 @@ class Ingredient(db.Model):
     def __init__(self, name, measurement):
         self.name = name
         self.measurement = measurement
+
+    def __repr__(self):
+        return '<Ingredient %s>' % self.name
