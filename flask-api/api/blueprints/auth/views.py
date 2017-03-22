@@ -34,7 +34,7 @@ class RegisterAPI(MethodView):
                 db.session.add(user)
                 db.session.commit()
                 # generate the auth token
-                auth_token = user.encode_auth_token(user.id)
+                auth_token = user.encode_auth_token()
                 responseObject = {
                     'status': 'success',
                     'message': 'Successfully registered.',
@@ -42,6 +42,7 @@ class RegisterAPI(MethodView):
                 }
                 return make_response(jsonify(responseObject)), 201
             except Exception as e:
+                raise
                 responseObject = {
                     'status': 'fail',
                     'message': 'Some error occurred. Please try again.'
@@ -70,7 +71,7 @@ class LoginAPI(MethodView):
             if user and bcrypt.check_password_hash(
                 user.password, post_data.get('password')
             ):
-                auth_token = user.encode_auth_token(user.id)
+                auth_token = user.encode_auth_token()
                 if auth_token:
                     responseObject = {
                         'status': 'success',

@@ -1,4 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify, g
+import uuid
 from functools import wraps
 
 from api.models.user import User
@@ -22,13 +23,15 @@ def is_logged_in(f):
                 auth_token = ''
             if auth_token:
                 resp = User.decode_auth_token(auth_token)
-                if not isinstance(resp, str):
-                    g.user_id = resp
+                try:
+                    g.user_id = uuid.UUID(hex=resp).hex
                     return f(*args, **kwargs)
-                responseObject = {
-                    'status': 'fail',
-                    'message': resp
-                }
+                except ValueError:
+                    responseObject = {
+                        'status': 'fail',
+                        'message': resp
+                    }
+
                 return make_response(jsonify(responseObject)), 401
             else:
                 responseObject = {
@@ -38,7 +41,7 @@ def is_logged_in(f):
                 return make_response(jsonify(responseObject)), 401
 
         except Exception as e:
-            print(e)
+
             responseObject = {
                 'status': 'fail',
                 'message': 'Something went wrong.'

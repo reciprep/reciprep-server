@@ -1,5 +1,8 @@
 import jwt
 import datetime
+import uuid
+from sqlalchemy.dialects.postgresql import UUID
+
 from enum import Enum
 
 from api import app, db, bcrypt
@@ -8,7 +11,7 @@ class User(db.Model):
     """ User Model for storing user related details """
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4().hex)
     email = db.Column(db.String(255), unique=True, nullable=False)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -25,7 +28,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User %s>' % self.username
 
-    def encode_auth_token(self, user_id):
+    def encode_auth_token(self):
         """
         Generates the Auth Token
         :return: string
@@ -37,7 +40,7 @@ class User(db.Model):
                     seconds=app.config.get('JWT_EXPIRATION_SECONDS')
                 ),
                 'iat': datetime.datetime.utcnow(),
-                'sub': user_id
+                'sub': self.id.hex
             }
             return jwt.encode(
                 payload,

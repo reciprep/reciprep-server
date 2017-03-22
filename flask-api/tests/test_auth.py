@@ -16,6 +16,7 @@ class TestAuth(BaseTestCase):
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')
+
             self.assertEqual(data['message'], 'Successfully registered.')
             self.assertTrue(data['auth_token'])
             self.assertEqual(response.content_type, 'application/json')
@@ -89,6 +90,8 @@ class TestAuth(BaseTestCase):
             resp_register = req_user_register(self, 'hammond@ingen.com', 'Richard', 'welcometojp')
             response = req_user_status(self, resp_register.data)
             data = json.loads(response.data.decode())
+
+            print (data)
 
             self.assertEqual(data['status'], 'success')
             self.assertTrue(data['data'] is not None)
