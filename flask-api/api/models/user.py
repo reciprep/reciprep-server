@@ -2,9 +2,8 @@ import jwt
 import datetime
 import uuid
 from sqlalchemy.dialects.postgresql import UUID
-
+from sqlalchemy.ext.associationproxy import association_proxy
 from enum import Enum
-
 from api import app, db, bcrypt
 
 class User(db.Model):
@@ -16,6 +15,7 @@ class User(db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
+    ingredients = association_proxy('pantry_ingredients', 'ingredient')
 
     def __init__(self, email, username, password):
         self.email = email
@@ -26,7 +26,7 @@ class User(db.Model):
         self.registered_on = datetime.datetime.now()
 
     def __repr__(self):
-        return '<User %s>' % self.username
+        return '<User %s, %s>' % self.username, self.email
 
     def encode_auth_token(self):
         """

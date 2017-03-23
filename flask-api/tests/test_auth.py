@@ -91,8 +91,6 @@ class TestAuth(BaseTestCase):
             response = req_user_status(self, resp_register.data)
             data = json.loads(response.data.decode())
 
-            print (data)
-
             self.assertEqual(data['status'], 'success')
             self.assertTrue(data['data'] is not None)
             self.assertEqual(data['data']['email'], 'hammond@ingen.com')
