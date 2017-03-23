@@ -20,8 +20,8 @@ def is_logged_in(f):
             if auth_header:
                 auth_token = auth_header.split(" ")[1]
             else:
-                auth_token = ''
-            if auth_token:
+                auth_token = None
+            if auth_token is not None:
                 resp = User.decode_auth_token(auth_token)
                 try:
                     g.user_id = uuid.UUID(hex=resp).hex
@@ -32,13 +32,13 @@ def is_logged_in(f):
                         'message': resp
                     }
 
-                return make_response(jsonify(responseObject)), 401
+                return make_response(jsonify(responseObject), 401)
             else:
                 responseObject = {
                     'status': 'fail',
                     'message': 'Provide a valid auth token.'
                 }
-                return make_response(jsonify(responseObject)), 401
+                return make_response(jsonify(responseObject), 401)
 
         except Exception as e:
 
@@ -46,7 +46,7 @@ def is_logged_in(f):
                 'status': 'fail',
                 'message': 'Something went wrong.'
             }
-            return make_response(jsonify(responseObject)), 401
+            return make_response(jsonify(responseObject), 401)
     return decorated_function
 
 def has_verified_email(f):

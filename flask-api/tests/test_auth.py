@@ -97,6 +97,8 @@ class TestAuth(BaseTestCase):
             self.assertEqual(data['data']['username'], 'Richard')
             self.assertEqual(response.status_code, 200)
 
+    ### TODO implement tests for expired / invalid tokens
+
 
 
 if __name__ == '__main__':

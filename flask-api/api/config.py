@@ -27,6 +27,7 @@ class TestingConfig(BaseConfig):
     BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name + '_test'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
+    LIVESERVER_PORT = 80
 
 
 # class ProductionConfig(BaseConfig):

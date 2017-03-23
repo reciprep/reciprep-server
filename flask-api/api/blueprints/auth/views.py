@@ -1,16 +1,16 @@
-
-
 from flask import Blueprint, request, make_response, jsonify, g
 from flask.views import MethodView
+from flask_restful import Api, Resource, url_for
 
 from api import bcrypt, db
 from api.models.user import User
 from api.decorators import is_logged_in
 
 auth_blueprint = Blueprint('auth', __name__)
+auth_api = Api(auth_blueprint)
 
 
-class RegisterAPI(MethodView):
+class RegisterAPI(Resource):
     """
     User Registration Resource
     """
@@ -40,23 +40,23 @@ class RegisterAPI(MethodView):
                     'message': 'Successfully registered.',
                     'auth_token': auth_token.decode()
                 }
-                return make_response(jsonify(responseObject)), 201
+                return make_response(jsonify(responseObject), 201)
             except Exception as e:
                 raise
                 responseObject = {
                     'status': 'fail',
                     'message': 'Some error occurred. Please try again.'
                 }
-                return make_response(jsonify(responseObject)), 401
+                return make_response(jsonify(responseObject), 401)
         else:
             responseObject = {
                 'status': 'fail',
                 'message': 'User already exists. Please log in.',
             }
-            return make_response(jsonify(responseObject)), 202
+            return make_response(jsonify(responseObject), 202)
 
 
-class LoginAPI(MethodView):
+class LoginAPI(Resource):
     """
     User Login Resource
     """
@@ -78,23 +78,23 @@ class LoginAPI(MethodView):
                         'message': 'Successfully logged in.',
                         'auth_token': auth_token.decode()
                     }
-                    return make_response(jsonify(responseObject)), 200
+                    return make_response(jsonify(responseObject), 200)
             else:
                 responseObject = {
                     'status': 'fail',
                     'message': 'User does not exist.'
                 }
-                return make_response(jsonify(responseObject)), 404
+                return make_response(jsonify(responseObject), 404)
         except Exception as e:
             print(e)
             responseObject = {
                 'status': 'fail',
                 'message': 'Try again'
             }
-            return make_response(jsonify(responseObject)), 500
+            return make_response(jsonify(responseObject), 500)
 
 
-class UserAPI(MethodView):
+class UserAPI(Resource):
     """
     User Resource
     """
@@ -114,27 +114,9 @@ class UserAPI(MethodView):
                 'registered_on': user.registered_on
             }
         }
-        return make_response(jsonify(responseObject)), 200
+        return make_response(jsonify(responseObject), 200)
 
 
-# define the API resources
-registration_view = RegisterAPI.as_view('register_api')
-login_view = LoginAPI.as_view('login_api')
-user_view = UserAPI.as_view('user_api')
-
-# add Rules for API Endpoints
-auth_blueprint.add_url_rule(
-    '/api/auth/register',
-    view_func=registration_view,
-    methods=['POST']
-)
-auth_blueprint.add_url_rule(
-    '/api/auth/login',
-    view_func=login_view,
-    methods=['POST']
-)
-auth_blueprint.add_url_rule(
-    '/api/auth/status',
-    view_func=user_view,
-    methods=['GET']
-)
+auth_api.add_resource(RegisterAPI, '/api/auth/register')
+auth_api.add_resource(LoginAPI, '/api/auth/login')
+auth_api.add_resource(UserAPI, '/api/auth/status')

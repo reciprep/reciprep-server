@@ -9,7 +9,12 @@ If you're on Windows, start the Vagrant machine:
 bin/vagrant.bat
 ```
 
-For Linux / OSX / Windows:
+When inside the VM:
+```
+cd /vagrant
+```
+
+For Linux / OSX:
 
 Create the databases:
 ```
