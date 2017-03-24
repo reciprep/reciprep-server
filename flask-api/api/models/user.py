@@ -26,7 +26,7 @@ class User(db.Model):
         self.registered_on = datetime.datetime.now()
 
     def __repr__(self):
-        return '<User %s, %s>' % self.username, self.email
+        return '<User %s, %s>' % (self.username, self.email)
 
     def encode_auth_token(self):
         """
