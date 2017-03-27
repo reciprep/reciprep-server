@@ -1,6 +1,5 @@
 from flask import Blueprint, request, make_response, jsonify, g
-from flask.views import MethodView
-from flask_restful import Api, Resource, url_for
+from flask_restful import Api, Resource, url_for, reqparse
 
 from api import bcrypt, db
 from api.models.user import User
@@ -18,8 +17,19 @@ class SearchAPI(Resource):
 
     decorators = [is_logged_in]
 
+    parser = reqparse.RequestParser()
+    parser.add_argument('query')
+
     def get(self):
         """ Search for ingredients that match the user's criteria and pantry contents """
-        pass
+
+        args = self.parser.parse_args()
+        query = args['query']
+
+        if query is not None:
+            terms = query.split('+')
+            
+        else:
+            pass
 
 recipe_api.add_resource(SearchAPI, '/api/recipe/search')
