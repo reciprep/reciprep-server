@@ -42,7 +42,6 @@ class RegisterAPI(Resource):
                 }
                 return make_response(jsonify(responseObject), 201)
             except Exception as e:
-                raise
                 responseObject = {
                     'status': 'fail',
                     'message': 'Some error occurred. Please try again.'

@@ -1,0 +1,12 @@
+{
+    "Users" :
+    [
+        {
+            "username": "admin",
+            "email": "admin@admin.com",
+            "password": "admin",
+            "admin": true,
+            "ingredients": ["Chicken", "Salt"]
+        }
+    ]
+}

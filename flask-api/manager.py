@@ -2,14 +2,15 @@
 
 import os
 import unittest
+import json
 
 from flask_script import Manager
 
 from api import app, db, bcrypt
 
+from helpers import json_to_user, json_to_ingredient, json_to_recipe
+
 manager = Manager(app)
-
-
 
 @manager.command
 def test():
@@ -31,6 +32,31 @@ def create_db():
 def drop_db():
     """Drops the db tables."""
     db.drop_all()
+
+@manager.command
+def seed_sampledata():
+    """ Seeds the db with sample data. """
+    db.drop_all()
+    db.create_all()
+
+    with open('../sampledata/sampleingredients.json') as f:
+        contents = json.load(f)
+        to_add = [json_to_ingredient(x) for x in contents['Ingredient']]
+        db.session.add_all(to_add)
+        db.session.commit()
+
+    with open('../sampledata/sampleusers.json') as f:
+        contents = json.load(f)
+        to_add = [json_to_user(x, check_db=True) for x in contents['Users']]
+        db.session.add_all(to_add)
+        db.session.commit()
+
+    with open('../sampledata/samplerecipes.json') as f:
+        contents = json.load(f)
+        to_add = [json_to_recipe(x, check_db=True) for x in contents['Recipes']]
+        db.session.add_all(to_add)
+        db.session.commit()
+
 
 
 if __name__ == "__main__":

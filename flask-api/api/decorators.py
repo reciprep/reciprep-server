@@ -8,11 +8,11 @@ from api.models.user import User
 Decorators for checking client auth status
 """
 
-def is_logged_in(f):
+def is_logged_in(func):
     """
     Decorator for checking if a User is logged in
     """
-    @wraps(f)
+    @wraps(func)
     def decorated_function(*args, **kwargs):
         try:
             # get the auth token
@@ -25,7 +25,7 @@ def is_logged_in(f):
                 resp = User.decode_auth_token(auth_token)
                 try:
                     g.user_id = uuid.UUID(hex=resp).hex
-                    return f(*args, **kwargs)
+                    return func(*args, **kwargs)
                 except ValueError:
                     responseObject = {
                         'status': 'fail',
@@ -49,15 +49,15 @@ def is_logged_in(f):
             return make_response(jsonify(responseObject), 401)
     return decorated_function
 
-def has_verified_email(f):
+def has_verified_email(func):
     """
     Decorator for checking if a User has verified their email
     """
-    @wraps(f)
+    @wraps(func)
     def decorated_function(*args, **kwargs):
         try:
             #### TODO perform verified email check here
-            return f(*args, **kwargs)
+            return func(*args, **kwargs)
         except Exception as e:
             print(e)
             return "Something went wrong."
