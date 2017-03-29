@@ -1,57 +1,57 @@
-{	
-	"Recipes": 
+{
+	"Recipes":
 			[
 
 				{
-					"RecipeID": 1,
+					"id": 1,
 					"name": "Chicken Parmesan",
 					"IngredientList": [1, 2, 3, 4, 5],
 					"ingredients":[Chicken, Penne, Shredded Mozzerela Cheese, Salt, Basil],
-					"ImageLocation": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
+					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
 					"description": "A simple, delicious recipe for Chicken Parmesan",
 					"steps": ["1.Boil Water", "2.Cook chicken in pan", "3.Put penne in boiling water", "4.Simmer cooked chicken and penne in tomata sauce and cheese", "5.Serve while hot"],
 					"rating": 2.5
 				},
 
 				{
-					"RecipeID": 2,
+					"id": 2,
 					"name": "Poor Man's Soup",
 					"IngredientList": [4, 5, 8, 6],
 					"ingredients":[Salt, Basil, Rice, Chicken Broth],
-					"ImageLocation": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
+					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
 					"description": "Tasty soup on a budget",
 					"steps": ["1.Boil Water", "2.Cook rice", "3. Put rice into chicken broth", "4.Top with salt and basil"],
 					"rating": 3.6
 				},
 
 				{
-					"RecipeID": 3,
+					"id": 3,
 					"name": "Poor Man's Saute",
 					"IngredientList": [9, 10, 11],
 					"ingredients":[Onion, Potato, Butter],
-					"ImageLocation": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
+					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
 					"description": "All you need are potatoes and onions",
 					"steps": ["1.Heat pan", "2. Chop potatoes", "3. Chop onions", "4. Cook in pan for 10 min", "5. Serve hot"],
 					"rating": 1.5
 				},
 
 				{
-					"RecipeID": 4,
+					"id": 4,
 					"name": "Chocolate Chip Cookies",
 					"IngredientList": [11, 12, 13, 14, 15, 16, 21, 17, 18],
 					"ingredients":[Butter, Brown Sugar, Vanilla, Nuts, Flour, Chocolate Chips, Granulated Sugar, Egg, Baking Soda],
-					"ImageLocation": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
+					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
 					"description": "Grandma's favorite!",
 					"steps": ["1. Heat oven", "2. Mix everything into bowl", "3. Make little balls of cookie dough and place on baking sheet", "4. Bake for 11-12 minutes"],
 					"rating": 5.0
 				},
 
 				{
-					"RecipeID": 5,
+					"id": 5,
 					"name": "Bacon Pizza",
 					"IngredientList": [19, 20, 3],
 					"ingredients":[Pizza Dough, Bacon, Shredded Mozzerela Cheese],
-					"ImageLocation": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
+					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
 					"description": "A simple, delicious recipe for Chicken Parmesan",
 					"steps": ["1.Heat oven to 400", "2. Flatten pizza dough", "3. Put cheese and bacon on top", "4. Bake for 30 minutes.", "5. Serve in 5 minutes"],
 					"rating": 2.1

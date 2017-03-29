@@ -4,149 +4,149 @@
 
 		{
 			"name": "Chicken",
-			"IngredientID": 1,
+			"id": 1,
 			"measurement": "mass",
-			"Unit_Quantity": 4.5
+			"quantity": 4.5
 		},
 
 		{
 			"name": "Penne",
-			"IngredientID": 2,
+			"id": 2,
 			"measurement": "volume",
-			"Unit_Quantity": 3.0
+			"quantity": 3.0
 		},
 
 		{
 			"name": "Shredded Mozzerela Cheese",
-			"IngredientID": 3,
+			"id": 3,
 			"measurement": "volume",
-			"Unit_Quantity": 3.0
+			"quantity": 3.0
 		},
 
 		{
 			"name": "Salt",
-			"IngredientID": 4,
+			"id": 4,
 			"measurement": "volume",
-			"Unit_Quantity": 2
+			"quantity": 2
 		},
 
 		{
 			"name": "Basil",
-			"IngredientID": 5,
+			"id": 5,
 			"measurement": "volume",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Chicken Broth",
-			"IngredientID": 6,
+			"id": 6,
 			"measurement": "volume",
-			"Unit_Quantity": 8.0
+			"quantity": 8.0
 		},
 
 		{
 			"name": "Flour",
-			"IngredientID": 7,
+			"id": 7,
 			"measurement": "count",
-			"Unit_Quantity": 2.0
+			"quantity": 2.0
 		},
 
 		{
 			"name": "Rice",
-			"IngredientID": 8,
+			"id": 8,
 			"measurement": "volume",
-			"Unit_Quantity": 3.0
+			"quantity": 3.0
 		},
 
 		{
 			"name": "Onion",
-			"IngredientID": 9,
+			"id": 9,
 			"measurement": "volume",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Potato",
-			"IngredientID": 10,
+			"id": 10,
 			"measurement": "count",
-			"Unit_Quantity": 0.5
+			"quantity": 0.5
 		},
 
 		{
 			"name": "Butter",
-			"IngredientID": 11,
+			"id": 11,
 			"measurement": "mass",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Brown Sugar",
-			"IngredientID": 12,
+			"id": 12,
 			"measurement": "volume",
-			"Unit_Quantity": 0.75
+			"quantity": 0.75
 		},
 
 		{
 			"name": "Vanilla",
-			"IngredientID": 13,
+			"id": 13,
 			"measurement": "volume",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Nuts",
-			"IngredientID": 14,
+			"id": 14,
 			"measurement": "volume",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Flour",
-			"IngredientID": 15,
+			"id": 15,
 			"measurement": "volume",
-			"Unit_Quantity": 2.25
+			"quantity": 2.25
 		},
 
 		{
 			"name": "Chocolate Chips",
-			"IngredientID": 16,
+			"id": 16,
 			"measurement": "volume",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Egg",
-			"IngredientID": 17,
+			"id": 17,
 			"measurement": "count",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Baking Soda",
-			"IngredientID": 18,
+			"id": 18,
 			"measurement": "volume",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Pizza Dough",
-			"IngredientID": 19,
+			"id": 19,
 			"measurement": "mass",
-			"Unit_Quantity": 1.0
+			"quantity": 1.0
 		},
 
 		{
 			"name": "Bacon",
-			"IngredientID": 20,
+			"id": 20,
 			"measurement": "mass",
-			"Unit_Quantity": 0.5
+			"quantity": 0.5
 		},
 
 		{
 			"name": "Granulated Sugar",
-			"IngredientID": 21,
+			"id": 21,
 			"measurement": "volume",
-			"Unit_Quantity": 0.75
+			"quantity": 0.75
 		}
 	]
 
