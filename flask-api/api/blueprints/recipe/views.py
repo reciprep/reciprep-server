@@ -62,13 +62,13 @@ class DetailsResource(Resource):
     """
     def get(self, recipe_id):
         try:
-            uuid.UUID(hex=recipe_id).hex
+            uuid.UUID(hex=recipe_id)
             recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
 
             if recipe:
                 ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id)
                 ingredientsObject = [{'name': i.ingredient.name, 'type': i.ingredient.measurement, 'value': i.value} for i in ingredients]
-                
+
                 responseObject = {
                     'status': 'success',
                     'data': {
@@ -95,9 +95,6 @@ class DetailsResource(Resource):
                 'message': '%s is not a valid recipe id' % recipe_id
             }
             return make_response(jsonify(responseObject), 400)
-
-
-
 
 
 recipe_api.add_resource(SearchResource, '/api/recipe/search')
