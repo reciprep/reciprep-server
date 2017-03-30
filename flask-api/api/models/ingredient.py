@@ -20,8 +20,8 @@ class Ingredient(db.Model):
     name = db.Column(db.String(255), unique=True, nullable=False)
     measurement = db.Column(db.Enum(MeasurementEnum), nullable=False)
 
-    users = association_proxy('pantry_ingredients', 'user')
-    recipes = association_proxy('recipe_ingredients', 'recipe')
+    users = association_proxy('ingredient_users', 'user')
+    recipes = association_proxy('ingredient_recipes', 'recipe')
 
     def __init__(self, name, measurement):
         self.name = name
@@ -39,13 +39,12 @@ class PantryIngredient(db.Model):
     ingredient_id = db.Column(UUID(as_uuid=True), db.ForeignKey('ingredients.id'))
     value = db.Column(db.Integer, nullable=False)
 
-    user = db.relationship(User, backref='pantry_ingredients')
-    ingredient = db.relationship(Ingredient, backref='pantry_ingredients')
+    user = db.relationship(User, backref='user_ingredients')
+    ingredient = db.relationship(Ingredient, backref='ingredient_users')
 
-    def __init__(self, value=0):
-        self.set_value(value)
-
-    def set_value(self, value):
+    def __init__(self, ingredient=None, user=None, value=0):
+        self.ingredient = ingredient
+        self.user = user
         self.value = value
 
 class RecipeIngredient(db.Model):
@@ -58,10 +57,9 @@ class RecipeIngredient(db.Model):
     value = db.Column(db.Integer, nullable=False)
 
     recipe = db.relationship(Recipe, backref='recipe_ingredients')
-    ingredient = db.relationship(Ingredient, backref='recipe_ingredients')
+    ingredient = db.relationship(Ingredient, backref='ingredient_recipes')
 
-    def __init__(self, value=0):
-        self.set_value(value)
-
-    def set_value(self, value):
+    def __init__(self, ingredient=None, recipe=None, value=0):
+        self.ingredient = ingredient
+        self.recipe = recipe
         self.value = value

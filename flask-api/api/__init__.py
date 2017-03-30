@@ -16,4 +16,6 @@ bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 
 from api.blueprints.auth.views import auth_blueprint
+from api.blueprints.recipe.views import recipe_blueprint
 app.register_blueprint(auth_blueprint)
+app.register_blueprint(recipe_blueprint)

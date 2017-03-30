@@ -10,7 +10,7 @@ from api.decorators import is_logged_in
 pantry_blueprint = Blueprint('pantry', __name__)
 pantry_api = Api(pantry_blueprint)
 
-class IngredientsAPI(Resource):
+class IngredientsResource(Resource):
     """
     Resources for managing ingredients in the User's pantry
     """
@@ -32,4 +32,4 @@ class IngredientsAPI(Resource):
         """ Get a list all of the ingredients, with the ones in the pantry marked """
         pass
 
-pantry_api.add_resource(IngredientsAPI, '/api/pantry/ingredients')
+pantry_api.add_resource(IngredientsResource, '/api/pantry/ingredients')

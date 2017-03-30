@@ -10,7 +10,7 @@ auth_blueprint = Blueprint('auth', __name__)
 auth_api = Api(auth_blueprint)
 
 
-class RegisterAPI(Resource):
+class RegisterResource(Resource):
     """
     User Registration Resource
     """
@@ -55,7 +55,7 @@ class RegisterAPI(Resource):
             return make_response(jsonify(responseObject), 202)
 
 
-class LoginAPI(Resource):
+class LoginResource(Resource):
     """
     User Login Resource
     """
@@ -93,7 +93,7 @@ class LoginAPI(Resource):
             return make_response(jsonify(responseObject), 500)
 
 
-class UserAPI(Resource):
+class UserResource(Resource):
     """
     User Resource
     """
@@ -116,6 +116,6 @@ class UserAPI(Resource):
         return make_response(jsonify(responseObject), 200)
 
 
-auth_api.add_resource(RegisterAPI, '/api/auth/register')
-auth_api.add_resource(LoginAPI, '/api/auth/login')
-auth_api.add_resource(UserAPI, '/api/auth/status')
+auth_api.add_resource(RegisterResource, '/api/auth/register')
+auth_api.add_resource(LoginResource, '/api/auth/login')
+auth_api.add_resource(UserResource, '/api/auth/status')

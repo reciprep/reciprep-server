@@ -8,6 +8,22 @@ from api.models.user import User
 Decorators for checking client auth status
 """
 
+def exception_handler(func):
+    """
+    Wrap resources in an exception handler
+    """
+
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except:
+            ### TODO handle database / service connection errors
+            print(e)
+            raise
+            
+    return decorated_function
+
 def is_logged_in(func):
     """
     Decorator for checking if a User is logged in
@@ -22,14 +38,14 @@ def is_logged_in(func):
             else:
                 auth_token = None
             if auth_token is not None:
-                resp = User.decode_auth_token(auth_token)
+                result = User.decode_auth_token(auth_token)
                 try:
-                    g.user_id = uuid.UUID(hex=resp).hex
+                    g.user_id = uuid.UUID(hex=result).hex
                     return func(*args, **kwargs)
                 except ValueError:
                     responseObject = {
                         'status': 'fail',
-                        'message': resp
+                        'message': result
                     }
 
                 return make_response(jsonify(responseObject), 401)
