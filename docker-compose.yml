@@ -6,7 +6,11 @@ services:
         volumes:
             - ./flask-api:/usr/src/app
             - ./sampledata:/usr/src/sampledata
-        command: "/bin/bash -c \"cd /usr/src/app && pip install -r requirements.txt && python -u manager.py create_db && python -u manager.py runserver\""
+        command: "/bin/bash -c \"cd /usr/src/app && \
+                    pip install -r requirements.txt && \
+                    python -u manager.py create_db && \
+                    python -u manager.py seed_sampledata && \
+                    python -u manager.py runserver\""
         depends_on:
             - postgres
             - nginx

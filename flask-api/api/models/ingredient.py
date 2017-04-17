@@ -7,9 +7,9 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.associationproxy import association_proxy
 
 class MeasurementEnum(Enum):
-    MASS = 'mass'
-    VOLUME = 'volume'
-    COUNT = 'count'
+    MASS = 'MASS'
+    VOLUME = 'VOLUME'
+    COUNT = 'COUNT'
 
 class Ingredient(db.Model):
     """ Ingredient model for storing ingredients and their details """
@@ -37,7 +37,7 @@ class PantryIngredient(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4().hex)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
     ingredient_id = db.Column(UUID(as_uuid=True), db.ForeignKey('ingredients.id'))
-    value = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.Float, nullable=False)
 
     user = db.relationship(User, backref='user_ingredients')
     ingredient = db.relationship(Ingredient, backref='ingredient_users')
@@ -54,7 +54,7 @@ class RecipeIngredient(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4().hex)
     recipe_id = db.Column(UUID(as_uuid=True), db.ForeignKey('recipes.id'))
     ingredient_id = db.Column(UUID(as_uuid=True), db.ForeignKey('ingredients.id'))
-    value = db.Column(db.Integer, nullable=False)
+    value = db.Column(db.Float, nullable=False)
 
     recipe = db.relationship(Recipe, backref='recipe_ingredients')
     ingredient = db.relationship(Ingredient, backref='ingredient_recipes')

@@ -6,7 +6,7 @@
             "email": "admin@admin.com",
             "password": "admin",
             "admin": true,
-            "ingredients": ["Chicken", "Salt"]
+            "ingredients": [{"name": "Chicken", "value": 5}, {"name": "Salt", "value": 5}]
         }
     ]
 }

@@ -5,147 +5,140 @@
 		{
 			"name": "Chicken",
 			"id": 1,
-			"measurement": "mass",
+			"measurement": "MASS",
 			"quantity": 4.5
 		},
 
 		{
 			"name": "Penne",
 			"id": 2,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 3.0
 		},
 
 		{
 			"name": "Shredded Mozzerela Cheese",
 			"id": 3,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 3.0
 		},
 
 		{
 			"name": "Salt",
 			"id": 4,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 2
 		},
 
 		{
 			"name": "Basil",
 			"id": 5,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Chicken Broth",
 			"id": 6,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 8.0
 		},
 
 		{
 			"name": "Flour",
 			"id": 7,
-			"measurement": "count",
+			"measurement": "COUNT",
 			"quantity": 2.0
 		},
 
 		{
 			"name": "Rice",
 			"id": 8,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 3.0
 		},
 
 		{
 			"name": "Onion",
 			"id": 9,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Potato",
 			"id": 10,
-			"measurement": "count",
+			"measurement": "COUNT",
 			"quantity": 0.5
 		},
 
 		{
 			"name": "Butter",
 			"id": 11,
-			"measurement": "mass",
+			"measurement": "MASS",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Brown Sugar",
 			"id": 12,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 0.75
 		},
 
 		{
 			"name": "Vanilla",
 			"id": 13,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Nuts",
 			"id": 14,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 1.0
-		},
-
-		{
-			"name": "Flour",
-			"id": 15,
-			"measurement": "volume",
-			"quantity": 2.25
 		},
 
 		{
 			"name": "Chocolate Chips",
 			"id": 16,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Egg",
 			"id": 17,
-			"measurement": "count",
+			"measurement": "COUNT",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Baking Soda",
 			"id": 18,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Pizza Dough",
 			"id": 19,
-			"measurement": "mass",
+			"measurement": "MASS",
 			"quantity": 1.0
 		},
 
 		{
 			"name": "Bacon",
 			"id": 20,
-			"measurement": "mass",
+			"measurement": "MASS",
 			"quantity": 0.5
 		},
 
 		{
 			"name": "Granulated Sugar",
 			"id": 21,
-			"measurement": "volume",
+			"measurement": "VOLUME",
 			"quantity": 0.75
 		}
 	]

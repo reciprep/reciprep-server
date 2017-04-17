@@ -44,6 +44,17 @@ class CreateResource(Resource):
         pass
 
 
+class CookResource(Resource):
+    """
+    Cooking a recipe deducts its ingredients from the User's pantry
+    """
+
+    decorators = [is_logged_in]
+
+    def get(self):
+        pass
+
+
 class ModifyResource(Resource):
     """
     Recipe modification resource
