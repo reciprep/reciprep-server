@@ -6,7 +6,7 @@ from api import db
 from api.models.user import User
 from tests.base_test_case import BaseTestCase
 
-from tests.helpers import req_user_login, req_user_register, req_user_status
+from tests.helpers.auth import req_user_login, req_user_register, req_user_status
 
 class TestAuth(BaseTestCase):
     def test_register_new_user(self):
@@ -27,7 +27,7 @@ class TestAuth(BaseTestCase):
 
         user = User(
             email='hammond@ingen.com',
-            username='Richard',
+            username='John',
             password='welcometojp'
         )
 
@@ -43,7 +43,7 @@ class TestAuth(BaseTestCase):
             self.assertEqual(response.content_type, 'application/json')
             self.assertEqual(response.status_code, 202)
 
-            response = req_user_register(self, 'nedry@ingen.com', 'Richard', 'magicword')
+            response = req_user_register(self, 'nedry@ingen.com', 'John', 'magicword')
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'fail')
@@ -57,7 +57,7 @@ class TestAuth(BaseTestCase):
 
         user = User(
             email='hammond@ingen.com',
-            username='Richard',
+            username='John',
             password='welcometojp'
         )
 
@@ -65,7 +65,7 @@ class TestAuth(BaseTestCase):
         db.session.commit()
 
         with self.client:
-            response = req_user_login(self, 'Richard', 'welcometojp')
+            response = req_user_login(self, 'John', 'welcometojp')
             data = json.loads(response.data.decode())
             self.assertEqual(data['status'], 'success')
             self.assertEqual(data['message'], 'Successfully logged in.')
@@ -87,14 +87,14 @@ class TestAuth(BaseTestCase):
         """ Test for getting a user's status """
 
         with self.client:
-            resp_register = req_user_register(self, 'hammond@ingen.com', 'Richard', 'welcometojp')
+            resp_register = req_user_register(self, 'hammond@ingen.com', 'John', 'welcometojp')
             response = req_user_status(self, resp_register.data)
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')
             self.assertTrue(data['data'] is not None)
             self.assertEqual(data['data']['email'], 'hammond@ingen.com')
-            self.assertEqual(data['data']['username'], 'Richard')
+            self.assertEqual(data['data']['username'], 'John')
             self.assertEqual(response.status_code, 200)
 
     ### TODO implement tests for expired / invalid tokens

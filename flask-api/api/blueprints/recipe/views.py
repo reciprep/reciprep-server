@@ -2,6 +2,8 @@ import uuid
 from flask import Blueprint, request, make_response, jsonify, g
 from flask_restful import Api, Resource, url_for, reqparse
 
+from helpers import recipe_to_json
+
 from api import bcrypt, db
 from api.models.user import User
 from api.models.recipe import Recipe
@@ -18,14 +20,15 @@ class SearchResource(Resource):
 
     decorators = [is_logged_in]
 
-    parser = reqparse.RequestParser()
-    parser.add_argument('query')
+    # parser = reqparse.RequestParser()
+    # parser.add_argument('query', type=str, location='args')
 
     def get(self):
         """ Search for ingredients that match the user's criteria and pantry contents """
 
-        args = self.parser.parse_args()
-        query = args['query']
+        # args = self.parser.parse_args()
+        # query = args['query']
+        query = request.args.get('query')
 
         if query is not None:
             terms = query.split('+')
@@ -78,7 +81,7 @@ class DetailsResource(Resource):
 
             if recipe:
                 ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id)
-                ingredientsObject = [{'name': i.ingredient.name, 'type': i.ingredient.measurement, 'value': i.value} for i in ingredients]
+                ingredientsObject = [{'name': i.ingredient.name, 'measurement': i.ingredient.measurement.name, 'value': i.value} for i in ingredients]
 
                 responseObject = {
                     'status': 'success',
@@ -91,6 +94,9 @@ class DetailsResource(Resource):
                         'rating': recipe.rating
                     }
                 }
+
+                # recipe_to_json(recipe)
+
                 return make_response(jsonify(responseObject), 200)
 
             else:

@@ -1,4 +1,5 @@
-import json
+from flask import jsonify
+
 from api.models.user import User
 from api.models.ingredient import PantryIngredient, RecipeIngredient, Ingredient, MeasurementEnum
 from api.models.recipe import Recipe
@@ -6,6 +7,26 @@ from api.models.recipe import Recipe
 from api import db
 
 """ helper functions """
+
+def ingredient_to_json(ingredient, make_json=True):
+    obj = {
+        'name': ingredient.name,
+        'id': ingredient.id,
+        'measurement': ingredient.measurement
+    }
+
+    if make_json:
+        return jsonify(obj)
+    else:
+        return obj
+
+def recipe_to_json(recipe, make_json=True, access_db=True):
+
+    for i in recipe.ingredients:
+        print(i.value)
+
+def user_to_json(user, make_json=True):
+    pass
 
 def json_to_ingredient(obj, access_db=False):
     name = obj['name']
