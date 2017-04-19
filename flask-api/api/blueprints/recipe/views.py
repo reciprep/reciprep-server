@@ -7,7 +7,7 @@ from helpers import recipe_to_json
 from api import bcrypt, db
 from api.models.user import User
 from api.models.recipe import Recipe
-from api.models.ingredient import Ingredient, RecipeIngredient
+from api.models.ingredient import Ingredient, RecipeIngredient, PantryIngredient
 from api.decorators import is_logged_in
 
 recipe_blueprint = Blueprint('recipe', __name__)
@@ -24,14 +24,87 @@ class SearchResource(Resource):
     # parser.add_argument('query', type=str, location='args')
 
     def get(self):
-        """ Search for ingredients that match the user's criteria and pantry contents """
+        """
+        Search for ingredients that match the user's criteria and pantry contents
+
+        This method is hacked together and should be completely rewritten.
+            Not kidding, it's awful.
+                Seriously.
+        """
 
         # args = self.parser.parse_args()
         # query = args['query']
         query = request.args.get('query')
 
+        # user = User.query.filter(User.id == g.user_id).first()
+        user = User.query.get(g.user_id)
+
+        # print(user.id)
+
+        # print('Running query')
+        # recipes =
+        # recipes = Recipe.query.join(Recipe.ingredients.filter(Ingredient.id.in_(User.ingredients))).all()
+        # print(len(recipes))
+        result = PantryIngredient.query.filter(PantryIngredient.user_id == user.id).all()
+
+        ingredients = {}
+        for i in result:
+            ingredients[i.ingredient_id.hex] = i.value
+
+        print(ingredients)
+
+        # ingredients = set([i.id for i in user.ingredients])
+
+        # recipes = Recipe.query.filter(set(ingredients.keys()) >= set([i.id for i in Recipe.ingredients])).all()
+        result = RecipeIngredient.query.filter(
+            # (RecipeIngredient.ingredient_id.in_(ingredients.keys()))
+            (RecipeIngredient.ingredient_id.in_(ingredients.keys()))
+            # (RecipeIngredient.value <= ingredients[RecipeIngredient.ingredient_id.hex])
+        )\
+        .all()
+
+        result = [i for i in result if i.value <= ingredients[i.ingredient_id.hex]]
+        # .filter(RecipeIngredient.value <= ingredients[RecipeIngredient.ingredient_id.hex])\
+
+        print(result)
+
+        matches = {}
+        expected = {}
+
+        for i in result:
+            if i.recipe_id.hex in matches:
+                matches[i.recipe_id.hex] += 1
+            else:
+                expected[i.recipe_id.hex] = len(RecipeIngredient.query.filter(RecipeIngredient.recipe_id == i.recipe_id.hex).all())
+                matches[i.recipe_id.hex] = 1
+
+        print(matches)
+        print(expected)
+
+        recipe_ids = []
+        print(recipe_ids)
+
+        # raise Exception
+
+        for key, value in matches:
+            if expected[key] <= value:
+                recipe_ids.append(key)
+
+        print(recipe_ids)
+
+
+        recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids))
+
+        print(recipes)
+
+
+        # print(recipes)
+
         if query is not None:
             terms = query.split('+')
+
+            # RecipeIngredient.query.filter(RecipeIngredient.ingredient_id.in_(ingredients.keys()))
+
 
         else:
             pass
@@ -47,9 +120,9 @@ class CreateResource(Resource):
         pass
 
 
-class CookResource(Resource):
+class PrepareResource(Resource):
     """
-    Cooking a recipe deducts its ingredients from the User's pantry
+    Preparing a recipe deducts its ingredients from the User's pantry
     """
 
     decorators = [is_logged_in]
@@ -77,27 +150,11 @@ class DetailsResource(Resource):
     def get(self, recipe_id):
         try:
             uuid.UUID(hex=recipe_id)
-            recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
+            # recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
+            recipe = Recipe.query.get(recipe_id)
 
             if recipe:
-                ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id)
-                ingredientsObject = [{'name': i.ingredient.name, 'measurement': i.ingredient.measurement.name, 'value': i.value} for i in ingredients]
-
-                responseObject = {
-                    'status': 'success',
-                    'data': {
-                        'recipe_id': recipe.id,
-                        'name': recipe.name,
-                        'ingredients': ingredientsObject,
-                        'description': recipe.description,
-                        'steps': recipe.steps,
-                        'rating': recipe.rating
-                    }
-                }
-
-                # recipe_to_json(recipe)
-
-                return make_response(jsonify(responseObject), 200)
+                return make_response(recipe_to_json(recipe), 200)
 
             else:
                 responseObject = {

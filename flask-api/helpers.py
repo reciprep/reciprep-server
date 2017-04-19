@@ -17,13 +17,32 @@ def ingredient_to_json(ingredient, make_json=True):
 
     if make_json:
         return jsonify(obj)
-    else:
-        return obj
+    
+    return obj
 
 def recipe_to_json(recipe, make_json=True, access_db=True):
+    if access_db:
+        ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id)
+        ingredientsObject = [{'name': i.ingredient.name, 'measurement': i.ingredient.measurement.name, 'value': i.value} for i in ingredients]
+    else:
+        ingredientsObject = []
 
-    for i in recipe.ingredients:
-        print(i.value)
+    responseObject = {
+        'status': 'success',
+        'data': {
+            'recipe_id': recipe.id,
+            'name': recipe.name,
+            'ingredients': ingredientsObject,
+            'description': recipe.description,
+            'steps': recipe.steps,
+            'rating': recipe.rating
+        }
+    }
+
+    if make_json:
+        return jsonify(responseObject)
+
+    return responseObject
 
 def user_to_json(user, make_json=True):
     pass

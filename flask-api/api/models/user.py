@@ -54,7 +54,7 @@ class User(db.Model):
         """
         Validates the auth token
         :param auth_token:
-        :return: integer|string
+        :return: string
         """
         try:
             payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))
