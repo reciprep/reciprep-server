@@ -72,13 +72,6 @@ class TestRecipe(BaseTestCase):
 
     def test_search_recipes(self):
         """ Test searching for recipes """
-        # user = User(
-        #     email='hammond@ingen.com',
-        #     username='John',
-        #     password='welcometojp'
-        # )
-        #
-        # db.session.add(user)
 
         meat = {
             'name': 'Meat',
@@ -116,16 +109,36 @@ class TestRecipe(BaseTestCase):
         recipe = json_to_recipe(meat_water, access_db=True)
         db.session.commit()
 
+        meat_water_simple = {
+            'name': 'Meat Water',
+            'description': 'Watery meat',
+            'rating': 0.0
+        }
+
+        meat_water_simple['recipe_id'] = str(uuid.UUID(hex=recipe.id.hex))
+
+
         with self.client:
             response = req_user_login(self, 'Frank', 'magnum')
             user_data = json.loads(response.data.decode())
 
             response = req_search_recipe(self, user_data)
             data = json.loads(response.data.decode())
-            
-            self.assertEqual(data['status'], 'success')
 
-            # response = req_search_recipe(self, )
+            self.assertEqual(data['status'], 'success')
+            self.assertEqual(data['data']['recipes'], [meat_water_simple])
+
+            response = req_search_recipe(self, user_data, 'meat water')
+            data = json.loads(response.data.decode())
+
+            self.assertEqual(data['status'], 'success')
+            self.assertEqual(data['data']['recipes'], [meat_water_simple])
+
+            response = req_search_recipe(self, user_data, 'random query')
+            data = json.loads(response.data.decode())
+
+            self.assertEqual(data['status'], 'success')
+            self.assertEqual(data['data']['recipes'], [])
 
     def test_create_recipe(self):
         """ Test user creating a recipe """

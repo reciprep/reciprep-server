@@ -12,6 +12,7 @@ class BaseTestCase(TestCase):
         return app
 
     def setUp(self):
+        db.configure_mappers()
         db.create_all()
         db.session.commit()
 

@@ -51,7 +51,7 @@ class SearchResource(Resource):
         for i in result:
             ingredients[i.ingredient_id.hex] = i.value
 
-        print(ingredients)
+        # print(ingredients)
 
         # ingredients = set([i.id for i in user.ingredients])
 
@@ -66,7 +66,7 @@ class SearchResource(Resource):
         result = [i for i in result if i.value <= ingredients[i.ingredient_id.hex]]
         # .filter(RecipeIngredient.value <= ingredients[RecipeIngredient.ingredient_id.hex])\
 
-        print(result)
+        # print(result)
 
         matches = {}
         expected = {}
@@ -78,36 +78,43 @@ class SearchResource(Resource):
                 expected[i.recipe_id.hex] = len(RecipeIngredient.query.filter(RecipeIngredient.recipe_id == i.recipe_id.hex).all())
                 matches[i.recipe_id.hex] = 1
 
-        print(matches)
-        print(expected)
+        # print(matches)
+        # print(expected)
 
         recipe_ids = []
-        print(recipe_ids)
+        # print(recipe_ids)
 
-        # raise Exception
-
-        for key, value in matches:
-            if expected[key] <= value:
+        for key in matches:
+            if expected[key] <= matches[key]:
                 recipe_ids.append(key)
 
-        print(recipe_ids)
-
-
-        recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids))
-
-        print(recipes)
-
-
-        # print(recipes)
+        # print(recipe_ids)
 
         if query is not None:
-            terms = query.split('+')
-
-            # RecipeIngredient.query.filter(RecipeIngredient.ingredient_id.in_(ingredients.keys()))
-
-
+            recipes = Recipe.query \
+                .filter(Recipe.id.in_(recipe_ids)) \
+                .search(query.replace('+', ' ')) \
+                .limit(5) \
+                .all()
         else:
-            pass
+            recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all()
+
+        # print(recipes)
+        [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
+        # try:
+        #     print([recipe_to_json(r, make_json=False, verbose=False) for r in recipes])
+        # except Exception as e:
+        #     print(e)
+        responseObject = {
+            'status': 'success',
+            'data': {
+                'recipes': [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
+            }
+        }
+
+        return make_response(jsonify(responseObject), 200)
+
+        # return
 
 class CreateResource(Resource):
     """
@@ -154,7 +161,11 @@ class DetailsResource(Resource):
             recipe = Recipe.query.get(recipe_id)
 
             if recipe:
-                return make_response(recipe_to_json(recipe), 200)
+                responseObject = {
+                    'status': 'success',
+                    'data': recipe_to_json(recipe, make_json=False)
+                }
+                return make_response(jsonify(responseObject), 200)
 
             else:
                 responseObject = {
