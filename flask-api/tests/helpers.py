@@ -28,3 +28,19 @@ def req_user_status(test_case, data):
             Authorization='Bearer ' + json.loads(data.decode())['auth_token']
         )
     )
+
+
+
+def req_add_ingredient_to_pantry(test_case, user_id, ingredient_name, quantity, data):
+    return test_case.client.post(
+        '/api/user/{}/pantry/'.format(user_id),
+        headers=dict(
+            Authorization='Bearer ' + json.loads(data.decode())['auth_token']
+        ),
+        data=json.dumps(dict(
+            user_id=user_id,
+            ingredient_name=ingredient_name,
+            quantity=quantity
+        )),
+        content_type='application/json'
+    )

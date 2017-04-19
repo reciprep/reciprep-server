@@ -13,6 +13,7 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         db.create_all()
+        db.seed_sampledata()
         db.session.commit()
 
     def tearDown(self):
