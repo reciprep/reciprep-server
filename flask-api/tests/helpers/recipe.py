@@ -39,3 +39,13 @@ def req_prepare_recipe(test_case, data, recipe):
         ),
         content_length=0
     )
+
+def req_rate_recipe(test_case, data, recipe, value):
+    return test_case.client.put(
+        '/api/recipe/{}/rate'.format(recipe.id),
+        headers=dict(
+            Authorization='Bearer ' + data['auth_token']
+        ),
+        data=json.dumps({'value': value}),
+        content_type='application/json'
+    )

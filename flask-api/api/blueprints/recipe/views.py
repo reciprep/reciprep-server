@@ -138,19 +138,20 @@ class RateResource(Resource):
                 db.session.add(rating)
 
             #### POTENTIAL RACE CONDITIONS ###
-
             if recipe.num_ratings == 0:
                 recipe.num_ratings = 1
-                recipe.rating = rating
+                recipe.rating = value
             else:
-                recipe.rating = (recipe.rating * recipe.num_ratings + rating) / (recipe.num_ratings + 1)
+                new_rating = (recipe.rating * recipe.num_ratings + value) / (recipe.num_ratings + 1)
+                recipe.rating = new_rating
                 recipe.num_ratings = recipe.num_ratings + 1
             db.session.commit()
 
             responseObject = {
-                'status': 'success',
-                
+                'status': 'success'
             }
+
+            return make_response(jsonify(responseObject), 200)
 
         except KeyError:
             responseObject = {
@@ -159,7 +160,14 @@ class RateResource(Resource):
             }
             return make_response(jsonify(responseObject), 400)
         except ValueError:
-            pass
+            responseObject = {
+                'status': 'fail',
+                'message': 'Invalid rating value'
+            }
+            return make_response(jsonify(responseObject), 400)
+        except Exception as e:
+            print(e)
+            traceback.print_exc()
 
 
 class CreateResource(Resource):

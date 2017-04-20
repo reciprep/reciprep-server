@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.dialects.postgresql import ARRAY
@@ -18,6 +20,6 @@ class Rating(db.Model):
     recipe = db.relationship(Recipe, backref='rating_users')
 
     def __init__(self, user=None, recipe=None, value=0):
-        self.user = ingredient
+        self.user = user
         self.recipe = recipe
         self.value = value
