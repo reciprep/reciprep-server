@@ -1,4 +1,5 @@
 import uuid
+import math
 import traceback
 from flask import Blueprint, request, make_response, jsonify, g
 from flask_restful import Api, Resource, url_for, reqparse
@@ -98,10 +99,6 @@ class SearchResource(Resource):
 
             return make_response(jsonify(responseObject), 200)
 
-
-
-
-
 class RateResource(Resource):
     """
     Recipe rating resource
@@ -110,6 +107,9 @@ class RateResource(Resource):
     decorators = [is_logged_in]
 
     def patch(self, recipe_id):
+        """ Note: currently allows users to rate multiple times. """
+        # TODO Only allow admins to rate more than once
+
 
         pass
 
@@ -164,8 +164,56 @@ class PrepareResource(Resource):
 
     decorators = [is_logged_in]
 
-    def get(self, recipe_id):
-        pass
+    def put(self, recipe_id):
+        user = g.user
+        user_id = g.user_id
+
+        recipe = Recipe.query.get(recipe_id)
+
+        if recipe_id is None:
+            responseObject = {
+                'status': 'fail',
+                'message': 'Recipe does not exist.'
+            }
+
+            return make_response(jsonify(responseObject), 404)
+
+        recipe_ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id).all()
+        user_ingredients = PantryIngredient.query.filter(PantryIngredient.user_id == user_id).all()
+
+        user_dict = {}
+
+        for ui in user_ingredients:
+            user_dict[ui.ingredient_id] = ui
+
+        has_all_ingredients = True
+        changed = []
+
+        for ri in recipe_ingredients:
+            ui = user_dict.get(ri.ingredient_id)
+            if ui:
+                if math.isclose(ui.value, 0.0): continue
+                difference = ui.value - ri.value
+                ui.value = different if difference > 0 else 0
+                changed.append(ui)
+            else:
+                has_all_ingredients = False
+        db.session.commit()
+
+        if len(changed) == 0:
+            responseObject = {
+                'status': 'fail',
+                'message': 'User has no ingredients in recipe'
+            }
+
+            return make_response(jsonify(responseObject), 400)
+
+        responseObject = {
+            'status': 'success',
+            'has_all_ingredients': has_all_ingredients
+        }
+
+        return make_response(jsonify(responseObject), 200)
 
 
 class ModifyResource(Resource):

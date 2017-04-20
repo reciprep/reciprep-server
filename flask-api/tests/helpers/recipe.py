@@ -30,3 +30,12 @@ def req_create_recipe(test_case, data, recipe_obj):
         data=json.dumps(recipe_obj),
         content_type='application/json'
     )
+
+def req_prepare_recipe(test_case, data, recipe):
+    return test_case.client.put(
+        '/api/recipe/{}/prepare'.format(recipe.id),
+        headers=dict(
+            Authorization='Bearer ' + data['auth_token']
+        ),
+        content_length=0
+    )
