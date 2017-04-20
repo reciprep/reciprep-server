@@ -16,15 +16,18 @@ class IngredientsResource(Resource):
     """
     decorators = [is_logged_in]
 
-    def delete(self):
-        """ Remove an ingredient from the pantry """
-        pass
 
     def patch(self):
-        """ Change the amount of an ingredient in the pantry """
-
+        """ 
+        Change the amount of an ingredient in the pantry 
+        Works for existing ingredients or new ingredients
+        Checks for valid User and Ingredients
+            - returns status 'fail' otherwise
+            - does not change database if there is a failure for the user or any of the ingredients
+        Reads JSON from HTTP request, contiaining info about the ingredients to be changed
+        Commits changes to the database using SQL-Alchemy
+        """
         try:
-            # Check if user exists
             user = User.query.get(g.user_id)
             if not user:
                 responseObject = {
@@ -34,10 +37,8 @@ class IngredientsResource(Resource):
                 return make_response(jsonify(responseObject), 202)
 
             patch_data = request.get_json()
-            
-            for entry in patch_data.get("ingredients"):
 
-                # Check if ingredient exists
+            for entry in patch_data.get("ingredients"):
                 ingredient = Ingredient.query.filter(Ingredient.name == entry.get('ingredient_name')).first()
                 if not ingredient:
                     responseObject = {
@@ -47,20 +48,24 @@ class IngredientsResource(Resource):
                     db.session.remove()
                     return make_response(jsonify(responseObject), 202)
 
-                p_i = PantryIngredient.query.filter( (PantryIngredient.user_id == g.user_id) & (PantryIngredient.ingredient_id == ingredient.id) ).first()
+                p = PantryIngredient.query.filter( (PantryIngredient.user_id == g.user_id) & (PantryIngredient.ingredient_id == ingredient.id) ).first()
+                
                 if p_i:
                     p_i.value = entry['value']
                 else:
                     pantry_ingredient = PantryIngredient(user = user, ingredient = ingredient, value=entry['value'])
                     db.session.add(pantry_ingredient)
 
-            db.session.commit()
 
+            db.session.commit()
             responseObject = {
                 'status': 'success',
                 'message': 'Ingredients added to pantry.'
             }
+
             return make_response(jsonify(responseObject), 201)
+
+
         except Exception as e:
             print(e)
 
