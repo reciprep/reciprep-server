@@ -7,7 +7,7 @@
 			"id": 1,
 			"measurement": "MASS",
 			"quantity": 4.5,
-			"category": "Meats"
+			"category": "MEATS"
 		},
 
 		{
@@ -15,7 +15,7 @@
 			"id": 2,
 			"measurement": "VOLUME",
 			"quantity": 3.0,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -23,7 +23,7 @@
 			"id": 3,
 			"measurement": "VOLUME",
 			"quantity": 3.0,
-			"category": "Dairy"
+			"category": "DAIRY"
 		},
 
 		{
@@ -31,7 +31,7 @@
 			"id": 4,
 			"measurement": "VOLUME",
 			"quantity": 2,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -39,7 +39,7 @@
 			"id": 5,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "Vegetable"
+			"category": "VEGETABLE"
 		},
 
 		{
@@ -47,7 +47,7 @@
 			"id": 6,
 			"measurement": "VOLUME",
 			"quantity": 8.0,
-			"category": "Wet_Ingredients"
+			"category": "WET"
 		},
 
 		{
@@ -55,7 +55,7 @@
 			"id": 7,
 			"measurement": "COUNT",
 			"quantity": 2.0,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -63,7 +63,7 @@
 			"id": 8,
 			"measurement": "VOLUME",
 			"quantity": 3.0,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -71,7 +71,7 @@
 			"id": 9,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "Vegetable"
+			"category": "VEGETABLE"
 		},
 
 		{
@@ -79,7 +79,7 @@
 			"id": 10,
 			"measurement": "COUNT",
 			"quantity": 0.5,
-			"category": "Vegetable"
+			"category": "VEGETABLE"
 		},
 
 		{
@@ -87,7 +87,7 @@
 			"id": 11,
 			"measurement": "MASS",
 			"quantity": 1.0,
-			"category": "Dairy"
+			"category": "DAIRY"
 		},
 
 		{
@@ -95,7 +95,7 @@
 			"id": 12,
 			"measurement": "VOLUME",
 			"quantity": 0.75,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -103,7 +103,7 @@
 			"id": 13,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "Wet_Ingredients"
+			"category": "WET"
 		},
 
 		{
@@ -111,7 +111,7 @@
 			"id": 14,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -119,7 +119,7 @@
 			"id": 16,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -127,7 +127,7 @@
 			"id": 17,
 			"measurement": "COUNT",
 			"quantity": 1.0,
-			"category": "Wet_Ingredients"
+			"category": "WET"
 		},
 
 		{
@@ -135,7 +135,7 @@
 			"id": 18,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		},
 
 		{
@@ -143,7 +143,7 @@
 			"id": 19,
 			"measurement": "MASS",
 			"quantity": 1.0,
-			"category": "Grains"
+			"category": "GRAINS"
 		},
 
 		{
@@ -151,7 +151,7 @@
 			"id": 20,
 			"measurement": "MASS",
 			"quantity": 0.5,
-			"category": "Meats"
+			"category": "MEATS"
 		},
 
 		{
@@ -159,7 +159,7 @@
 			"id": 21,
 			"measurement": "VOLUME",
 			"quantity": 0.75,
-			"category": "Dry_Ingredients"
+			"category": "DRY"
 		}
 	]
 
