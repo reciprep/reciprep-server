@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from api.models.user import User
-from api.models.ingredient import PantryIngredient, RecipeIngredient, Ingredient, MeasurementEnum
+from api.models.ingredient import PantryIngredient, RecipeIngredient, Ingredient, MeasurementEnum, CategoryEnum
 from api.models.recipe import Recipe
 
 from api import db
@@ -12,7 +12,8 @@ def ingredient_to_json(ingredient, make_json=True):
     obj = {
         'name': ingredient.name,
         'id': ingredient.id,
-        'measurement': ingredient.measurement
+        'measurement': ingredient.measurement,
+        'category': ingredient.category
     }
 
     if make_json:
@@ -24,8 +25,10 @@ def recipe_to_json(recipe, make_json=True, access_db=True, verbose=True):
     if access_db:
         ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id).all()
         ingredientsObject = [{'name': i.ingredient.name, 'measurement': i.ingredient.measurement.name, 'value': i.value} for i in ingredients]
+        creator = recipe.creator.username if recipe.creator else ''
     else:
         ingredientsObject = []
+        creator = ''
 
     if verbose:
         recipe_object = {
@@ -34,7 +37,8 @@ def recipe_to_json(recipe, make_json=True, access_db=True, verbose=True):
             'ingredients': ingredientsObject,
             'description': recipe.description,
             'steps': recipe.steps,
-            'rating': recipe.rating
+            'rating': recipe.rating,
+            'creator': creator
         }
     else:
         recipe_object = {
@@ -56,7 +60,15 @@ def json_to_ingredient(obj, access_db=False):
     name = obj['name']
     measurement = obj['measurement']
     if measurement not in [m.value for m in list(MeasurementEnum)]:
-        print(measurement)
+        # print(measurement)
+        raise ValueError
+
+    category = obj.get('category')
+
+    if not category:
+        category = 'MISC'
+    elif category not in [c.value for c in list(CategoryEnum)]:
+                # print(measurement)
         raise ValueError
 
     ingredient = None
@@ -65,13 +77,13 @@ def json_to_ingredient(obj, access_db=False):
         ingredient = Ingredient.query.filter(Ingredient.name == name).first()
 
     if ingredient is None:
-        ingredient = Ingredient(name=name, measurement=measurement)
+        ingredient = Ingredient(name=name, measurement=measurement, category=category)
         if access_db:
             db.session.add(ingredient)
     else:
         print('Ingredient %s already in db' % ingredient.name)
 
-    return Ingredient(name=name, measurement=measurement)
+    return ingredient
 
 def json_to_user(obj, access_db=False):
     email = obj['email']
@@ -97,11 +109,11 @@ def json_to_user(obj, access_db=False):
         db.session.add(user)
     return user
 
-def json_to_recipe(obj, access_db=False):
+def json_to_recipe(obj, access_db=False, creator=None):
     name = obj['name']
     description = obj['description']
     steps = obj['steps']
-    rating = obj['rating']
+    rating = obj.get('rating')
 
     recipe = None
 
@@ -110,6 +122,8 @@ def json_to_recipe(obj, access_db=False):
     if recipe is None:
         recipe = Recipe(name=name, description=description, steps=steps, rating=rating)
 
+    if creator:
+        recipe.creator = creator
     ingredients = obj['ingredients']
 
     for ing in ingredients:

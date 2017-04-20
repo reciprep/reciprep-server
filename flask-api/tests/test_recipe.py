@@ -11,7 +11,7 @@ from tests.base_test_case import BaseTestCase
 
 from helpers import json_to_ingredient, json_to_user, json_to_recipe
 from tests.helpers.auth import req_user_login, req_user_register, req_user_status
-from tests.helpers.recipe import req_recipe_details, req_search_recipe
+from tests.helpers.recipe import req_recipe_details, req_search_recipe, req_create_recipe
 
 class TestRecipe(BaseTestCase):
     def test_get_recipe_details(self):
@@ -34,7 +34,8 @@ class TestRecipe(BaseTestCase):
             'ingredients': [meat, water],
             'description': 'Watery meat',
             'steps': ['Place meat in bowl', 'Add water'],
-            'rating': 0.0
+            'rating': None,
+            'creator': ''
         }
 
         dbmeat = json_to_ingredient(meat, access_db=True)
@@ -85,12 +86,110 @@ class TestRecipe(BaseTestCase):
             'value': 5.0
         }
 
+        dog_food = {
+            'name': 'Dog Food',
+            'measurement': 'MASS',
+            'value': 5.0
+        }
+
         meat_water = {
             'name': 'Meat Water',
             'ingredients': [meat, water],
             'description': 'Watery meat',
             'steps': ['Place meat in bowl', 'Add water'],
-            'rating': 0.0
+            'rating': 1.0
+        }
+
+        dog_food_recipe = {
+            'name': 'Dog Food Recipe',
+            'ingredients': [dog_food],
+            'description': 'This is for dogs. Do not eat.',
+            'steps': ['Place in dog bowl.', 'Consume.'],
+            'rating': 3.0
+        }
+
+        user_obj = {
+            'email': 'frankie@reynolds.net',
+            'username': 'Frank',
+            'password': 'magnum',
+            'ingredients': [meat, water]
+        }
+
+        dbmeat = json_to_ingredient(meat, access_db=True)
+        dbwater = json_to_ingredient(water, access_db=True)
+        dbdog_food = json_to_ingredient(dog_food, access_db=True)
+        user = json_to_user(user_obj, access_db=True)
+
+        db.session.commit()
+
+        recipe = json_to_recipe(meat_water, access_db=True)
+        df_recipe = json_to_recipe(dog_food_recipe, access_db=True)
+        db.session.commit()
+
+        meat_water_simple = {
+            'name': 'Meat Water',
+            'description': 'Watery meat',
+            'rating': 1.0
+        }
+
+        dog_food_simple = {
+            'name': 'Dog Food Recipe',
+            'description': 'This is for dogs. Do not eat.',
+            'rating': 3.0
+        }
+
+        meat_water_simple['recipe_id'] = str(uuid.UUID(hex=recipe.id.hex))
+
+
+        with self.client:
+            response = req_user_login(self, 'Frank', 'magnum')
+            user_data = json.loads(response.data.decode())
+
+            response = req_search_recipe(self, user_data, filter_='true')
+            data = json.loads(response.data.decode())
+
+            self.assertEqual(data['status'], 'success')
+            self.assertEqual(data['data']['recipes'], [meat_water_simple])
+
+            response = req_search_recipe(self, user_data, 'meat water', filter_='true')
+            data = json.loads(response.data.decode())
+
+            self.assertEqual(data['status'], 'success')
+            self.assertEqual(data['data']['recipes'], [meat_water_simple])
+
+            response = req_search_recipe(self, user_data, 'random query', filter_='true')
+            data = json.loads(response.data.decode())
+
+            self.assertEqual(data['status'], 'success')
+            self.assertEqual(data['data']['recipes'], [])
+
+            response = req_search_recipe(self, user_data)
+            data = json.loads(response.data.decode())
+
+            self.assertEqual(data['status'], 'success')
+            # print(data['data']['recipes'])
+            self.assertEqual(len(data['data']['recipes']), 2)
+
+    def test_create_recipe(self):
+        """ Test user creating a recipe """
+
+        meat = {
+            'name': 'Meat',
+            'measurement': 'MASS',
+            'value': 5.0
+        }
+
+        water = {
+            'name': 'Dirty Water',
+            'measurement': 'VOLUME',
+            'value': 5.0
+        }
+
+        meat_water = {
+            'name': 'Meat Water',
+            'ingredients': [meat, water],
+            'description': 'Watery meat',
+            'steps': ['Place meat in bowl', 'Add water'],
         }
 
         user_obj = {
@@ -106,43 +205,21 @@ class TestRecipe(BaseTestCase):
 
         db.session.commit()
 
-        recipe = json_to_recipe(meat_water, access_db=True)
-        db.session.commit()
-
-        meat_water_simple = {
-            'name': 'Meat Water',
-            'description': 'Watery meat',
-            'rating': 0.0
-        }
-
-        meat_water_simple['recipe_id'] = str(uuid.UUID(hex=recipe.id.hex))
-
-
         with self.client:
             response = req_user_login(self, 'Frank', 'magnum')
             user_data = json.loads(response.data.decode())
 
-            response = req_search_recipe(self, user_data)
+            response = req_create_recipe(self, user_data, meat_water)
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')
-            self.assertEqual(data['data']['recipes'], [meat_water_simple])
 
-            response = req_search_recipe(self, user_data, 'meat water')
+            response = req_create_recipe(self, user_data, meat_water)
             data = json.loads(response.data.decode())
 
-            self.assertEqual(data['status'], 'success')
-            self.assertEqual(data['data']['recipes'], [meat_water_simple])
+            self.assertEqual(data['status'], 'fail')
 
-            response = req_search_recipe(self, user_data, 'random query')
-            data = json.loads(response.data.decode())
 
-            self.assertEqual(data['status'], 'success')
-            self.assertEqual(data['data']['recipes'], [])
-
-    def test_create_recipe(self):
-        """ Test user creating a recipe """
-        pass
 
     def test_modify_recipe(self):
         """ Test user modifying a recipe """
@@ -150,6 +227,10 @@ class TestRecipe(BaseTestCase):
 
     def test_prepare_recipe(self):
         """ Test user cooking a recipe """
+        pass
+
+    def test_rate_recipe(self):
+        """ Test rating a recipe """
         pass
 
 

@@ -6,6 +6,16 @@ from api.models.recipe import Recipe
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.associationproxy import association_proxy
 
+class CategoryEnum(Enum):
+    MEATS = 'MEATS'
+    GRAINS = 'GRAINS'
+    FRUITS = 'FRUITS'
+    VEGETABLES = 'VEGETABLES'
+    WET = 'WET'
+    DRY = 'DRY'
+    DAIRY = 'DAIRY'
+    MISC = 'MISC'
+
 class MeasurementEnum(Enum):
     MASS = 'MASS'
     VOLUME = 'VOLUME'
@@ -19,13 +29,15 @@ class Ingredient(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4().hex)
     name = db.Column(db.String(255), unique=True, nullable=False)
     measurement = db.Column(db.Enum(MeasurementEnum), nullable=False)
+    category = db.Column(db.Enum(CategoryEnum), nullable=False)
 
     users = association_proxy('ingredient_users', 'user')
     recipes = association_proxy('ingredient_recipes', 'recipe')
 
-    def __init__(self, name, measurement):
+    def __init__(self, name, measurement, category):
         self.name = name
         self.measurement = measurement
+        self.category = category
 
     def __repr__(self):
         return '<Ingredient %s>' % self.name

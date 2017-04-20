@@ -15,8 +15,6 @@ app.config.from_object(app_settings)
 
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
-make_searchable()
-db.configure_mappers()
 
 from api.blueprints.auth.views import auth_blueprint
 from api.blueprints.recipe.views import recipe_blueprint
