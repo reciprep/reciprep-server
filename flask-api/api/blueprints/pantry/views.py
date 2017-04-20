@@ -75,7 +75,14 @@ class IngredientsResource(Resource):
 
     def get(self):
         """ 
-        Get a list all of the ingredients
+        Get a list of all the ingredients in the user's pantry
+        Check for valid User
+        Add each ingredient to a JSON object, including the following
+            - name
+            - type
+            - value (measurement)
+            - category
+        Add resource to HTML address /api/user/pantry
         """
 
         try:
@@ -110,5 +117,4 @@ class IngredientsResource(Resource):
             }
             return make_response(jsonify(responseObject), 400)
 
-# recipe_api.add_resource(DetailsResource, '/api/recipe/<string:recipe_id>')
 pantry_api.add_resource(IngredientsResource, '/api/user/pantry')
