@@ -353,19 +353,19 @@ class TestRecipe(BaseTestCase):
             response = req_rate_recipe(self, user_data, recipe, 5.0)
             data = json.loads(response.data.decode())
 
-            print(data)
             self.assertEqual(data['status'], 'success')
             self.assertEqual(recipe.rating, 5.0)
 
             response = req_rate_recipe(self, user_data, recipe, 1.0)
             data = json.loads(response.data.decode())
 
-            self.assertEqual(data['status'], 'fail')
+            self.assertEqual(data['status'], 'success')
+            self.assertEqual(recipe.rating, 1.0)
 
             response = req_user_login(self, 'Dennis', 'mistertibbs')
             user_data = json.loads(response.data.decode())
 
-            response = req_rate_recipe(self, user_data, recipe, 1.0)
+            response = req_rate_recipe(self, user_data, recipe, 5.0)
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')

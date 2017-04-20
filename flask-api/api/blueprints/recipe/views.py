@@ -127,25 +127,24 @@ class RateResource(Resource):
             rating = Rating.query.filter(Rating.user_id == g.user_id, Rating.recipe_id == recipe.id).first()
 
             if rating:
-                responseObject = {
-                    'status': 'fail',
-                    'message': 'You have already rated this recipe'
-                }
+                new_value = (recipe.rating * recipe.num_ratings - recipe.rating + value) / recipe.num_ratings
+                rating.value = value
+                recipe.rating = new_value
+                db.session.commit()
 
-                return make_response(jsonify(responseObject), 403)
             else:
                 rating = Rating(user=g.user, recipe=recipe, value=value)
                 db.session.add(rating)
 
             #### POTENTIAL RACE CONDITIONS ###
-            if recipe.num_ratings == 0:
-                recipe.num_ratings = 1
-                recipe.rating = value
-            else:
-                new_rating = (recipe.rating * recipe.num_ratings + value) / (recipe.num_ratings + 1)
-                recipe.rating = new_rating
-                recipe.num_ratings = recipe.num_ratings + 1
-            db.session.commit()
+                if recipe.num_ratings == 0:
+                    recipe.num_ratings = 1
+                    recipe.rating = value
+                else:
+                    new_rating = (recipe.rating * recipe.num_ratings + value) / (recipe.num_ratings + 1)
+                    recipe.rating = new_rating
+                    recipe.num_ratings = recipe.num_ratings + 1
+                db.session.commit()
 
             responseObject = {
                 'status': 'success'
