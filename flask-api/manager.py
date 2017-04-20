@@ -40,10 +40,6 @@ def drop_db():
 def seed_sampledata():
     """ Seeds the db with sample data. """
 
-    db.drop_all()
-    db.create_all()
-    db.session.commit()
-
     with open('../sampledata/sampleingredients.json') as f:
         contents = json.load(f)
         added = [json_to_ingredient(x, access_db=True) for x in contents['Ingredient']]

@@ -9,6 +9,7 @@ from helpers import recipe_to_json, json_to_recipe
 from api import bcrypt, db
 from api.models.user import User
 from api.models.recipe import Recipe
+from api.models.rating import Rating
 from api.models.ingredient import Ingredient, RecipeIngredient, PantryIngredient
 from api.decorators import is_logged_in
 
@@ -106,12 +107,54 @@ class RateResource(Resource):
 
     decorators = [is_logged_in]
 
-    def patch(self, recipe_id):
-        """ Note: currently allows users to rate multiple times. """
-        # TODO Only allow admins to rate more than once
+    def put(self, recipe_id):
+        """ Note: currently only allows users to rate once. """
+        # TODO Let users change their rating
 
+        try:
+            put_data = request.get_json()
+            recipe = Recipe.query.get(recipe_id)
 
-        pass
+            if not recipe:
+                responseObject = {
+                    'status': 'fail',
+                    'message': 'Recipe %s not found.' % recipe_id
+                }
+                return make_response(jsonify(responseObject), 404)
+
+            value = float(put_data['value'])
+
+            rating = Rating.query.filter(Rating.user_id == g.user_id, Rating.recipe_id == recipe.id).first()
+
+            if rating:
+                responseObject = {
+                    'status': 'fail',
+                    'message': 'You have already rated this recipe'
+                }
+
+                return make_response(jsonify(responseObject), 403)
+            else:
+                rating = Rating(user=g.user, recipe=recipe, value=value)
+                db.session.add(rating)
+
+            #### POTENTIAL RACE CONDITIONS ###
+
+            if recipe.num_ratings == 0:
+                recipe.num_ratings = 1
+                recipe.rating = rating
+            else:
+                recipe.rating = (recipe.rating * recipe.num_ratings + rating) / (recipe.num_ratings + 1)
+                recipe.num_ratings = recipe.num_ratings + 1
+            db.session.commit()
+
+        except KeyError:
+            responseObject = {
+                'status': 'fail',
+                'message': 'No rating specified'
+            }
+            return make_response(jsonify(responseObject), 400)
+        except ValueError:
+            pass
 
 
 class CreateResource(Resource):
@@ -153,9 +196,7 @@ class CreateResource(Resource):
             }
 
             return make_response(jsonify(responseObject), 400)
-        except Exception as e:
-            traceback.print_exc()
-            print(e)
+
 
 class PrepareResource(Resource):
     """
