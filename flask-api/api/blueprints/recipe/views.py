@@ -108,9 +108,6 @@ class RateResource(Resource):
     decorators = [is_logged_in]
 
     def put(self, recipe_id):
-        """ Note: currently only allows users to rate once. """
-        # TODO Let users change their rating
-
         try:
             put_data = request.get_json()
             recipe = Recipe.query.get(recipe_id)
