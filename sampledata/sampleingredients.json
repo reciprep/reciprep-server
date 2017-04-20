@@ -6,140 +6,160 @@
 			"name": "Chicken",
 			"id": 1,
 			"measurement": "MASS",
-			"quantity": 4.5
+			"quantity": 4.5,
+			"category": "MEATS"
 		},
 
 		{
 			"name": "Penne",
 			"id": 2,
 			"measurement": "VOLUME",
-			"quantity": 3.0
+			"quantity": 3.0,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Shredded Mozzerela Cheese",
 			"id": 3,
 			"measurement": "VOLUME",
-			"quantity": 3.0
+			"quantity": 3.0,
+			"category": "DAIRY"
 		},
 
 		{
 			"name": "Salt",
 			"id": 4,
 			"measurement": "VOLUME",
-			"quantity": 2
+			"quantity": 2,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Basil",
 			"id": 5,
 			"measurement": "VOLUME",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "VEGETABLE"
 		},
 
 		{
 			"name": "Chicken Broth",
 			"id": 6,
 			"measurement": "VOLUME",
-			"quantity": 8.0
+			"quantity": 8.0,
+			"category": "WET"
 		},
 
 		{
 			"name": "Flour",
 			"id": 7,
 			"measurement": "COUNT",
-			"quantity": 2.0
+			"quantity": 2.0,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Rice",
 			"id": 8,
 			"measurement": "VOLUME",
-			"quantity": 3.0
+			"quantity": 3.0,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Onion",
 			"id": 9,
 			"measurement": "VOLUME",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "VEGETABLE"
 		},
 
 		{
 			"name": "Potato",
 			"id": 10,
 			"measurement": "COUNT",
-			"quantity": 0.5
+			"quantity": 0.5,
+			"category": "VEGETABLE"
 		},
 
 		{
 			"name": "Butter",
 			"id": 11,
 			"measurement": "MASS",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "DAIRY"
 		},
 
 		{
 			"name": "Brown Sugar",
 			"id": 12,
 			"measurement": "VOLUME",
-			"quantity": 0.75
+			"quantity": 0.75,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Vanilla",
 			"id": 13,
 			"measurement": "VOLUME",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "WET"
 		},
 
 		{
 			"name": "Nuts",
 			"id": 14,
 			"measurement": "VOLUME",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Chocolate Chips",
 			"id": 16,
 			"measurement": "VOLUME",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Egg",
 			"id": 17,
 			"measurement": "COUNT",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "WET"
 		},
 
 		{
 			"name": "Baking Soda",
 			"id": 18,
 			"measurement": "VOLUME",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "DRY"
 		},
 
 		{
 			"name": "Pizza Dough",
 			"id": 19,
 			"measurement": "MASS",
-			"quantity": 1.0
+			"quantity": 1.0,
+			"category": "GRAINS"
 		},
 
 		{
 			"name": "Bacon",
 			"id": 20,
 			"measurement": "MASS",
-			"quantity": 0.5
+			"quantity": 0.5,
+			"category": "MEATS"
 		},
 
 		{
 			"name": "Granulated Sugar",
 			"id": 21,
 			"measurement": "VOLUME",
-			"quantity": 0.75
+			"quantity": 0.75,
+			"category": "DRY"
 		}
 	]
 

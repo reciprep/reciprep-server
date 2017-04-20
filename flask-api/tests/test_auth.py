@@ -16,7 +16,6 @@ class TestAuth(BaseTestCase):
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')
-
             self.assertEqual(data['message'], 'Successfully registered.')
             self.assertTrue(data['auth_token'])
             self.assertEqual(response.content_type, 'application/json')

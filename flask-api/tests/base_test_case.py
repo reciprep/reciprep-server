@@ -15,6 +15,7 @@ class BaseTestCase(TestCase):
         db.drop_all()
         db.configure_mappers()
         db.create_all()
+        # db.seed_sampledata()
         db.session.commit()
 
     def tearDown(self):
