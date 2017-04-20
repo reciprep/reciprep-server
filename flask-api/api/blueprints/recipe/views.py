@@ -147,6 +147,11 @@ class RateResource(Resource):
                 recipe.num_ratings = recipe.num_ratings + 1
             db.session.commit()
 
+            responseObject = {
+                'status': 'success',
+                
+            }
+
         except KeyError:
             responseObject = {
                 'status': 'fail',
