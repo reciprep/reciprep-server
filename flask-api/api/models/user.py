@@ -14,6 +14,7 @@ class User(db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
+    created_recipes = db.relationship('Recipe', back_populates='creator')
     ingredients = association_proxy('user_ingredients', 'ingredient')
 
     def __init__(self, email, username, password):

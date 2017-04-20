@@ -21,7 +21,7 @@ def exception_handler(func):
             ### TODO handle database / service connection errors
             print(e)
             raise
-            
+
     return decorated_function
 
 def is_logged_in(func):
@@ -41,7 +41,16 @@ def is_logged_in(func):
                 result = User.decode_auth_token(auth_token)
                 try:
                     g.user_id = uuid.UUID(hex=result).hex
-                    return func(*args, **kwargs)
+                    user = User.query.get(g.user_id)
+                    if user is not None:
+                        g.user = user
+                        return func(*args, **kwargs)
+                    else:
+                        responseObject = {
+                            'status': 'fail',
+                            'message': 'Auth token for nonexistent user.'
+                        }
+                        return make_response(jsonify(responseObject), 401)
                 except ValueError:
                     responseObject = {
                         'status': 'fail',

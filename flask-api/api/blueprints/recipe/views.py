@@ -1,8 +1,9 @@
 import uuid
+import traceback
 from flask import Blueprint, request, make_response, jsonify, g
 from flask_restful import Api, Resource, url_for, reqparse
 
-from helpers import recipe_to_json
+from helpers import recipe_to_json, json_to_recipe
 
 from api import bcrypt, db
 from api.models.user import User
@@ -20,9 +21,6 @@ class SearchResource(Resource):
 
     decorators = [is_logged_in]
 
-    # parser = reqparse.RequestParser()
-    # parser.add_argument('query', type=str, location='args')
-
     def get(self):
         """
         Search for ingredients that match the user's criteria and pantry contents
@@ -32,41 +30,21 @@ class SearchResource(Resource):
                 Seriously.
         """
 
-        # args = self.parser.parse_args()
-        # query = args['query']
         query = request.args.get('query')
 
-        # user = User.query.filter(User.id == g.user_id).first()
         user = User.query.get(g.user_id)
-
-        # print(user.id)
-
-        # print('Running query')
-        # recipes =
-        # recipes = Recipe.query.join(Recipe.ingredients.filter(Ingredient.id.in_(User.ingredients))).all()
-        # print(len(recipes))
         result = PantryIngredient.query.filter(PantryIngredient.user_id == user.id).all()
 
         ingredients = {}
         for i in result:
             ingredients[i.ingredient_id.hex] = i.value
 
-        # print(ingredients)
-
-        # ingredients = set([i.id for i in user.ingredients])
-
-        # recipes = Recipe.query.filter(set(ingredients.keys()) >= set([i.id for i in Recipe.ingredients])).all()
         result = RecipeIngredient.query.filter(
-            # (RecipeIngredient.ingredient_id.in_(ingredients.keys()))
             (RecipeIngredient.ingredient_id.in_(ingredients.keys()))
-            # (RecipeIngredient.value <= ingredients[RecipeIngredient.ingredient_id.hex])
         )\
         .all()
 
         result = [i for i in result if i.value <= ingredients[i.ingredient_id.hex]]
-        # .filter(RecipeIngredient.value <= ingredients[RecipeIngredient.ingredient_id.hex])\
-
-        # print(result)
 
         matches = {}
         expected = {}
@@ -78,33 +56,22 @@ class SearchResource(Resource):
                 expected[i.recipe_id.hex] = len(RecipeIngredient.query.filter(RecipeIngredient.recipe_id == i.recipe_id.hex).all())
                 matches[i.recipe_id.hex] = 1
 
-        # print(matches)
-        # print(expected)
-
         recipe_ids = []
-        # print(recipe_ids)
 
         for key in matches:
             if expected[key] <= matches[key]:
                 recipe_ids.append(key)
 
-        # print(recipe_ids)
-
         if query is not None:
             recipes = Recipe.query \
                 .filter(Recipe.id.in_(recipe_ids)) \
                 .search(query.replace('+', ' ')) \
-                .limit(5) \
                 .all()
         else:
             recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all()
 
-        # print(recipes)
         [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
-        # try:
-        #     print([recipe_to_json(r, make_json=False, verbose=False) for r in recipes])
-        # except Exception as e:
-        #     print(e)
+
         responseObject = {
             'status': 'success',
             'data': {
@@ -114,7 +81,16 @@ class SearchResource(Resource):
 
         return make_response(jsonify(responseObject), 200)
 
-        # return
+class RateResource(Resource):
+    """
+    Recipe rating resource
+    """
+
+    decorators = [is_logged_in]
+
+    def patch(self, recipe_id):
+        pass
+
 
 class CreateResource(Resource):
     """
@@ -124,8 +100,40 @@ class CreateResource(Resource):
     decorators = [is_logged_in]
 
     def post(self):
-        pass
+        try:
+            post_data = request.get_json()
+            if 'rating' in post_data:
+                post_data['rating'] = None
+            recipe = Recipe.query.filter(Recipe.name == post_data['name']).first()
 
+
+            if not recipe:
+                recipe = json_to_recipe(post_data, creator=g.user)
+                db.session.commit()
+
+                responseObject = {
+                    'status': 'success',
+                    'recipe_id': recipe.id.hex
+                }
+
+                return make_response(jsonify(responseObject), 200)
+            else:
+                responseObject = {
+                    'status': 'fail',
+                    'message': 'Recipe with name %s already exists' % recipe.name
+                }
+                return make_response(jsonify(responseObject), 202)
+
+        except KeyError:
+            responseObject = {
+                'status': 'fail',
+                'message': 'Invalid recipe information provided'
+            }
+
+            return make_response(jsonify(responseObject), 400)
+        except Exception as e:
+            traceback.print_exc()
+            print(e)
 
 class PrepareResource(Resource):
     """
@@ -134,7 +142,7 @@ class PrepareResource(Resource):
 
     decorators = [is_logged_in]
 
-    def get(self):
+    def get(self, recipe_id):
         pass
 
 
@@ -157,7 +165,6 @@ class DetailsResource(Resource):
     def get(self, recipe_id):
         try:
             uuid.UUID(hex=recipe_id)
-            # recipe = Recipe.query.filter(Recipe.id == recipe_id).first()
             recipe = Recipe.query.get(recipe_id)
 
             if recipe:
@@ -186,3 +193,5 @@ recipe_api.add_resource(SearchResource, '/api/recipe/search')
 recipe_api.add_resource(CreateResource, '/api/recipe')
 recipe_api.add_resource(ModifyResource, '/api/recipe/<string:recipe_id>')
 recipe_api.add_resource(DetailsResource, '/api/recipe/<string:recipe_id>')
+recipe_api.add_resource(RateResource '/api/recipe/<string:recipe_id>/rate')
+recipe_api.add_resource(PrepareResource, '/api/recipe/<string:recipe_id/prepare')

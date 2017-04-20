@@ -16,3 +16,14 @@ def req_search_recipe(test_case, data, query=''):
             Authorization='Bearer ' + data['auth_token']
         )
     )
+
+def req_create_recipe(test_case, data, recipe_obj):
+    # print(json.dumps(recipe_obj))
+    return test_case.client.post(
+        '/api/recipe',
+        headers=dict(
+            Authorization='Bearer ' + data['auth_token']
+        ),
+        data=json.dumps(recipe_obj),
+        content_type='application/json'
+    )

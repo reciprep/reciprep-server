@@ -24,8 +24,10 @@ def recipe_to_json(recipe, make_json=True, access_db=True, verbose=True):
     if access_db:
         ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id).all()
         ingredientsObject = [{'name': i.ingredient.name, 'measurement': i.ingredient.measurement.name, 'value': i.value} for i in ingredients]
+        creator = recipe.creator.username if recipe.creator else ''
     else:
         ingredientsObject = []
+        creator = ''
 
     if verbose:
         recipe_object = {
@@ -34,7 +36,8 @@ def recipe_to_json(recipe, make_json=True, access_db=True, verbose=True):
             'ingredients': ingredientsObject,
             'description': recipe.description,
             'steps': recipe.steps,
-            'rating': recipe.rating
+            'rating': recipe.rating,
+            'creator': creator
         }
     else:
         recipe_object = {
@@ -97,11 +100,11 @@ def json_to_user(obj, access_db=False):
         db.session.add(user)
     return user
 
-def json_to_recipe(obj, access_db=False):
+def json_to_recipe(obj, access_db=False, creator=None):
     name = obj['name']
     description = obj['description']
     steps = obj['steps']
-    rating = obj['rating']
+    rating = obj.get('rating')
 
     recipe = None
 
@@ -110,6 +113,8 @@ def json_to_recipe(obj, access_db=False):
     if recipe is None:
         recipe = Recipe(name=name, description=description, steps=steps, rating=rating)
 
+    if creator:
+        recipe.creator = creator
     ingredients = obj['ingredients']
 
     for ing in ingredients:

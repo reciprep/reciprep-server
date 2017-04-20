@@ -30,10 +30,10 @@ class RegisterResource(Resource):
                     username=post_data.get('username'),
                     password=post_data.get('password')
                 )
-                # insert the user
+                
                 db.session.add(user)
                 db.session.commit()
-                # generate the auth token
+
                 auth_token = user.encode_auth_token()
                 responseObject = {
                     'status': 'success',

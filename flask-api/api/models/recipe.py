@@ -21,12 +21,16 @@ class Recipe(db.Model):
     steps = db.Column(ARRAY(db.Text))
     rating = db.Column(db.Float)
     num_ratings = db.Column(db.Integer, default=0)
+    creator_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
+    creator = db.relationship('User', back_populates='created_recipes')
     search_vector = db.Column(TSVectorType('name', 'description'))
 
     ingredients = association_proxy('recipe_ingredients', 'ingredient')
 
-    def __init__(self, name, description=None, steps=None, rating=None):
+    def __init__(self, name, description=None, steps=None, rating=None, creator=None, creator_id=None):
         self.name = name
         self.description = description
         self.steps = steps
         self.rating = rating
+        self.creator_id = creator_id
+        self.creator = creator
