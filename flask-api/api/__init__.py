@@ -20,5 +20,7 @@ db.configure_mappers()
 
 from api.blueprints.auth.views import auth_blueprint
 from api.blueprints.recipe.views import recipe_blueprint
+from api.blueprints.pantry.views import pantry_blueprint
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(recipe_blueprint)
+app.register_blueprint(pantry_blueprint)

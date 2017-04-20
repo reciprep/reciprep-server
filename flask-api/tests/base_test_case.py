@@ -14,7 +14,7 @@ class BaseTestCase(TestCase):
     def setUp(self):
         db.configure_mappers()
         db.create_all()
-        db.seed_sampledata()
+        # db.seed_sampledata()
         db.session.commit()
 
     def tearDown(self):
