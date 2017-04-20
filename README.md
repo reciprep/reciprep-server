@@ -16,11 +16,12 @@ cd /vagrant
 
 For Linux / OSX:
 
-Create the databases:
+Initialize the databases:
 ```
 docker-compose up postgres &
 bash bin/psql-init
 bash bin/psql-test-init
+docker-compose -f docker-init.yml up
 docker-compose down
 ```
 

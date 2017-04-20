@@ -26,8 +26,10 @@ def test():
 @manager.command
 def create_db():
     """Creates the db tables."""
+    db.drop_all()
+    db.configure_mappers()
     db.create_all()
-
+    db.session.commit()
 
 @manager.command
 def drop_db():
@@ -37,8 +39,10 @@ def drop_db():
 @manager.command
 def seed_sampledata():
     """ Seeds the db with sample data. """
+
     db.drop_all()
     db.create_all()
+    db.session.commit()
 
     with open('../sampledata/sampleingredients.json') as f:
         contents = json.load(f)

@@ -9,11 +9,12 @@ def req_recipe_details(test_case, recipe_id):
 def req_search_recipe(test_case, data, query='', filter_=False):
     querystring = ''
     if query:
-        querystring = '?query=' + query.replace(' ', '+')
+        querystring = '?terms=' + query.replace(' ', '+')
 
     if filter_:
         querystring += '&filter=true' if query else '?filter=true'
 
+    print('/api/recipe/search' + querystring)
 
     return test_case.client.get(
         '/api/recipe/search' + querystring,

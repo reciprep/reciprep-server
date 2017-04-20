@@ -30,7 +30,7 @@ class SearchResource(Resource):
                 Seriously.
         """
 
-        query = request.args.get('query')
+        query = request.args.get('terms')
         filter_ = request.args.get('filter')
 
         if filter_ == 'true':

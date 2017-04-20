@@ -6,6 +6,8 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from flask_sqlalchemy import SQLAlchemy, BaseQuery
 from sqlalchemy_searchable import SearchQueryMixin
 from sqlalchemy_utils.types import TSVectorType
+from sqlalchemy_searchable import make_searchable
+
 
 class RecipeQuery(BaseQuery, SearchQueryMixin):
     pass
@@ -14,6 +16,8 @@ class Recipe(db.Model):
     """ Model for storing recipes """
     query_class = RecipeQuery
     __tablename__ = 'recipes'
+    
+    make_searchable()
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4().hex)
     name = db.Column(db.String(255), unique=True, nullable=False)
