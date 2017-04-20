@@ -86,12 +86,26 @@ class TestRecipe(BaseTestCase):
             'value': 5.0
         }
 
+        dog_food = {
+            'name': 'Dog Food',
+            'measurement': 'MASS',
+            'value': 5.0
+        }
+
         meat_water = {
             'name': 'Meat Water',
             'ingredients': [meat, water],
             'description': 'Watery meat',
             'steps': ['Place meat in bowl', 'Add water'],
-            'rating': 0.0
+            'rating': 1.0
+        }
+
+        dog_food_recipe = {
+            'name': 'Dog Food Recipe',
+            'ingredients': [dog_food],
+            'description': 'This is for dogs. Do not eat.',
+            'steps': ['Place in dog bowl.', 'Consume.'],
+            'rating': 3.0
         }
 
         user_obj = {
@@ -103,17 +117,25 @@ class TestRecipe(BaseTestCase):
 
         dbmeat = json_to_ingredient(meat, access_db=True)
         dbwater = json_to_ingredient(water, access_db=True)
+        dbdog_food = json_to_ingredient(dog_food, access_db=True)
         user = json_to_user(user_obj, access_db=True)
 
         db.session.commit()
 
         recipe = json_to_recipe(meat_water, access_db=True)
+        df_recipe = json_to_recipe(dog_food_recipe, access_db=True)
         db.session.commit()
 
         meat_water_simple = {
             'name': 'Meat Water',
             'description': 'Watery meat',
-            'rating': 0.0
+            'rating': 1.0
+        }
+
+        dog_food_simple = {
+            'name': 'Dog Food Recipe',
+            'description': 'This is for dogs. Do not eat.',
+            'rating': 3.0
         }
 
         meat_water_simple['recipe_id'] = str(uuid.UUID(hex=recipe.id.hex))
@@ -123,23 +145,30 @@ class TestRecipe(BaseTestCase):
             response = req_user_login(self, 'Frank', 'magnum')
             user_data = json.loads(response.data.decode())
 
-            response = req_search_recipe(self, user_data)
+            response = req_search_recipe(self, user_data, filter_='true')
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')
             self.assertEqual(data['data']['recipes'], [meat_water_simple])
 
-            response = req_search_recipe(self, user_data, 'meat water')
+            response = req_search_recipe(self, user_data, 'meat water', filter_='true')
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')
             self.assertEqual(data['data']['recipes'], [meat_water_simple])
 
-            response = req_search_recipe(self, user_data, 'random query')
+            response = req_search_recipe(self, user_data, 'random query', filter_='true')
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'success')
             self.assertEqual(data['data']['recipes'], [])
+
+            response = req_search_recipe(self, user_data)
+            data = json.loads(response.data.decode())
+
+            self.assertEqual(data['status'], 'success')
+            # print(data['data']['recipes'])
+            self.assertEqual(len(data['data']['recipes']), 2)
 
     def test_create_recipe(self):
         """ Test user creating a recipe """

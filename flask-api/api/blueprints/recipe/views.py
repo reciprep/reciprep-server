@@ -32,8 +32,59 @@ class SearchResource(Resource):
 
         query = request.args.get('query')
         filter_ = request.args.get('filter')
+
         if filter_ == 'true':
-            if query is not None:
+            user = User.query.get(g.user_id)
+            result = PantryIngredient.query.filter(PantryIngredient.user_id == user.id).all()
+
+            ingredients = {}
+            for i in result:
+                ingredients[i.ingredient_id.hex] = i.value
+
+            result = RecipeIngredient.query.filter(
+                (RecipeIngredient.ingredient_id.in_(ingredients.keys()))
+            )\
+            .all()
+
+            result = [i for i in result if i.value <= ingredients[i.ingredient_id.hex]]
+
+            matches = {}
+            expected = {}
+
+            for i in result:
+                if i.recipe_id.hex in matches:
+                    matches[i.recipe_id.hex] += 1
+                else:
+                    expected[i.recipe_id.hex] = len(RecipeIngredient.query.filter(RecipeIngredient.recipe_id == i.recipe_id.hex).all())
+                    matches[i.recipe_id.hex] = 1
+
+            recipe_ids = []
+
+            for key in matches:
+                if expected[key] <= matches[key]:
+                    recipe_ids.append(key)
+
+            if query:
+                recipes = Recipe.query \
+                    .filter(Recipe.id.in_(recipe_ids)) \
+                    .search(query.replace('+', ' ')) \
+                    .all()
+            else:
+                recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all()
+
+            [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
+
+            responseObject = {
+                'status': 'success',
+                'data': {
+                    'recipes': [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
+                }
+            }
+
+            return make_response(jsonify(responseObject), 200)
+
+        else:
+            if query:
                 recipes = Recipe.query.search(query.replace('+', ' ')).all()
             else:
                 recipes = Recipe.query.all()
@@ -49,54 +100,7 @@ class SearchResource(Resource):
 
 
 
-        user = User.query.get(g.user_id)
-        result = PantryIngredient.query.filter(PantryIngredient.user_id == user.id).all()
 
-        ingredients = {}
-        for i in result:
-            ingredients[i.ingredient_id.hex] = i.value
-
-        result = RecipeIngredient.query.filter(
-            (RecipeIngredient.ingredient_id.in_(ingredients.keys()))
-        )\
-        .all()
-
-        result = [i for i in result if i.value <= ingredients[i.ingredient_id.hex]]
-
-        matches = {}
-        expected = {}
-
-        for i in result:
-            if i.recipe_id.hex in matches:
-                matches[i.recipe_id.hex] += 1
-            else:
-                expected[i.recipe_id.hex] = len(RecipeIngredient.query.filter(RecipeIngredient.recipe_id == i.recipe_id.hex).all())
-                matches[i.recipe_id.hex] = 1
-
-        recipe_ids = []
-
-        for key in matches:
-            if expected[key] <= matches[key]:
-                recipe_ids.append(key)
-
-        if query is not None:
-            recipes = Recipe.query \
-                .filter(Recipe.id.in_(recipe_ids)) \
-                .search(query.replace('+', ' ')) \
-                .all()
-        else:
-            recipes = Recipe.query.filter(Recipe.id.in_(recipe_ids)).all()
-
-        [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
-
-        responseObject = {
-            'status': 'success',
-            'data': {
-                'recipes': [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
-            }
-        }
-
-        return make_response(jsonify(responseObject), 200)
 
 class RateResource(Resource):
     """

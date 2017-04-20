@@ -6,12 +6,17 @@ def req_recipe_details(test_case, recipe_id):
         content_type='application/json'
     )
 
-def req_search_recipe(test_case, data, query=''):
+def req_search_recipe(test_case, data, query='', filter_=False):
+    querystring = ''
     if query:
-        query = '?query=' + query.replace(' ', '+')
+        querystring = '?query=' + query.replace(' ', '+')
+
+    if filter_:
+        querystring += '&filter=true' if query else '?filter=true'
+
 
     return test_case.client.get(
-        '/api/recipe/search' + query,
+        '/api/recipe/search' + querystring,
         headers=dict(
             Authorization='Bearer ' + data['auth_token']
         )
