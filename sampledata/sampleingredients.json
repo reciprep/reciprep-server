@@ -23,7 +23,7 @@
 			"id": 3,
 			"measurement": "VOLUME",
 			"quantity": 3.0,
-			"category": "Dry_Ingredients"
+			"category": "Dairy"
 		},
 
 		{
@@ -87,7 +87,7 @@
 			"id": 11,
 			"measurement": "MASS",
 			"quantity": 1.0,
-			"category": "Wet_Ingredients"
+			"category": "Dairy"
 		},
 
 		{
