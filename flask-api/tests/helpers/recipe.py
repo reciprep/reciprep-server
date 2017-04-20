@@ -14,8 +14,6 @@ def req_search_recipe(test_case, data, query='', filter_=False):
     if filter_:
         querystring += '&filter=true' if query else '?filter=true'
 
-    print('/api/recipe/search' + querystring)
-
     return test_case.client.get(
         '/api/recipe/search' + querystring,
         headers=dict(
@@ -24,7 +22,6 @@ def req_search_recipe(test_case, data, query='', filter_=False):
     )
 
 def req_create_recipe(test_case, data, recipe_obj):
-    # print(json.dumps(recipe_obj))
     return test_case.client.post(
         '/api/recipe',
         headers=dict(

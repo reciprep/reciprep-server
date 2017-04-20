@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from api.models.user import User
-from api.models.ingredient import PantryIngredient, RecipeIngredient, Ingredient, MeasurementEnum
+from api.models.ingredient import PantryIngredient, RecipeIngredient, Ingredient, MeasurementEnum, CategoryEnum
 from api.models.recipe import Recipe
 
 from api import db
@@ -12,7 +12,8 @@ def ingredient_to_json(ingredient, make_json=True):
     obj = {
         'name': ingredient.name,
         'id': ingredient.id,
-        'measurement': ingredient.measurement
+        'measurement': ingredient.measurement,
+        'category': ingredient.category
     }
 
     if make_json:
@@ -59,7 +60,15 @@ def json_to_ingredient(obj, access_db=False):
     name = obj['name']
     measurement = obj['measurement']
     if measurement not in [m.value for m in list(MeasurementEnum)]:
-        print(measurement)
+        # print(measurement)
+        raise ValueError
+
+    category = obj.get('category')
+
+    if not category:
+        category = 'MISC'
+    elif category not in [c.value for c in list(CategoryEnum)]:
+                # print(measurement)
         raise ValueError
 
     ingredient = None
@@ -68,13 +77,13 @@ def json_to_ingredient(obj, access_db=False):
         ingredient = Ingredient.query.filter(Ingredient.name == name).first()
 
     if ingredient is None:
-        ingredient = Ingredient(name=name, measurement=measurement)
+        ingredient = Ingredient(name=name, measurement=measurement, category=category)
         if access_db:
             db.session.add(ingredient)
     else:
         print('Ingredient %s already in db' % ingredient.name)
 
-    return Ingredient(name=name, measurement=measurement)
+    return ingredient
 
 def json_to_user(obj, access_db=False):
     email = obj['email']
