@@ -186,7 +186,6 @@ class TestRecipe(BaseTestCase):
             self.assertEqual(data['status'], 'success')
 
             response = req_create_recipe(self, user_data, meat_water)
-
             data = json.loads(response.data.decode())
 
             self.assertEqual(data['status'], 'fail')

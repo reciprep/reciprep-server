@@ -31,6 +31,23 @@ class SearchResource(Resource):
         """
 
         query = request.args.get('query')
+        filter_ = request.args.get('filter')
+        if filter_ == 'true':
+            if query is not None:
+                recipes = Recipe.query.search(query.replace('+', ' ')).all()
+            else:
+                recipes = Recipe.query.all()
+
+            responseObject = {
+                'status': 'success',
+                'data': {
+                    'recipes': [recipe_to_json(r, make_json=False, verbose=False) for r in recipes]
+                }
+            }
+
+            return make_response(jsonify(responseObject), 200)
+
+
 
         user = User.query.get(g.user_id)
         result = PantryIngredient.query.filter(PantryIngredient.user_id == user.id).all()
@@ -89,6 +106,7 @@ class RateResource(Resource):
     decorators = [is_logged_in]
 
     def patch(self, recipe_id):
+
         pass
 
 
@@ -104,8 +122,8 @@ class CreateResource(Resource):
             post_data = request.get_json()
             if 'rating' in post_data:
                 post_data['rating'] = None
-            recipe = Recipe.query.filter(Recipe.name == post_data['name']).first()
 
+            recipe = Recipe.query.filter(Recipe.name == post_data['name']).first()
 
             if not recipe:
                 recipe = json_to_recipe(post_data, creator=g.user)
@@ -120,14 +138,14 @@ class CreateResource(Resource):
             else:
                 responseObject = {
                     'status': 'fail',
-                    'message': 'Recipe with name %s already exists' % recipe.name
+                    'message': 'Recipe with name %s already exists.' % recipe.name
                 }
                 return make_response(jsonify(responseObject), 202)
 
         except KeyError:
             responseObject = {
                 'status': 'fail',
-                'message': 'Invalid recipe information provided'
+                'message': 'Invalid recipe information provided.'
             }
 
             return make_response(jsonify(responseObject), 400)
@@ -177,14 +195,14 @@ class DetailsResource(Resource):
             else:
                 responseObject = {
                     'status': 'fail',
-                    'message': 'Recipe %s not found' % recipe_id
+                    'message': 'Recipe %s not found.' % recipe_id
                 }
                 return make_response(jsonify(responseObject), 404)
 
         except ValueError:
             responseObject = {
                 'status': 'fail',
-                'message': '%s is not a valid recipe id' % recipe_id
+                'message': '%s is not a valid recipe id.' % recipe_id
             }
             return make_response(jsonify(responseObject), 400)
 
@@ -193,5 +211,5 @@ recipe_api.add_resource(SearchResource, '/api/recipe/search')
 recipe_api.add_resource(CreateResource, '/api/recipe')
 recipe_api.add_resource(ModifyResource, '/api/recipe/<string:recipe_id>')
 recipe_api.add_resource(DetailsResource, '/api/recipe/<string:recipe_id>')
-recipe_api.add_resource(RateResource '/api/recipe/<string:recipe_id>/rate')
-recipe_api.add_resource(PrepareResource, '/api/recipe/<string:recipe_id/prepare')
+recipe_api.add_resource(RateResource, '/api/recipe/<string:recipe_id>/rate')
+recipe_api.add_resource(PrepareResource, '/api/recipe/<string:recipe_id>/prepare')
