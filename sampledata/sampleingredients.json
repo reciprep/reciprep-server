@@ -39,7 +39,7 @@
 			"id": 5,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "VEGETABLE"
+			"category": "VEGETABLES"
 		},
 
 		{
@@ -71,7 +71,7 @@
 			"id": 9,
 			"measurement": "VOLUME",
 			"quantity": 1.0,
-			"category": "VEGETABLE"
+			"category": "VEGETABLES"
 		},
 
 		{
@@ -79,7 +79,7 @@
 			"id": 10,
 			"measurement": "COUNT",
 			"quantity": 0.5,
-			"category": "VEGETABLE"
+			"category": "VEGETABLES"
 		},
 
 		{
