@@ -6,7 +6,110 @@
             "email": "admin@admin.com",
             "password": "admin",
             "admin": true,
-            "ingredients": [{"name": "Chicken", "type": "MASS", "value": 5, "category": "Meats"}, {"name": "Salt", "type": "MASS", "value": 5, "category": "Dry"}]
+            "ingredients": [{"name": "cream chesse", "type": "MASS", "category": "Dairy", "value": 2},
+              {"name": "blue cheese","type": "MASS", "category":"Dairy","value": 2},{"name": "onion powder","type": "MASS", "category": "Dairy","value": 0.125},
+              {"name": "parsley","type": "MASS","value": 1},{"name": "ground beef","type": "MASS","value": 1},{
+        					"name": "salmon fillet",
+                  "type": "MASS",
+                  "category": "Meat",
+        					"value": 1
+        				},
+        				{
+        					"name": "olive oil",
+                  "type": "MASS",
+                  "category": "Wet",
+        					"value": 2
+        				},
+        				{
+        					"name": "capers",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 2
+        				},
+                {
+        					"name": "salt",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 0.125
+        				},
+        				{
+        					"name": "black pepper",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 0.125
+        				},
+        				{
+        					"name": "lemon",
+                  "type": "MASS",
+                  "category": "Fruit",
+        					"value": 1
+        				},
+                {
+        					"name": "linguine pasta",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 16
+        				},
+        				{
+        					"name": "butter",
+                  "type": "MASS",
+                  "category": "Dairy",
+        					"value": 4
+        				},
+        				{
+        					"name": "extra-virgin olive oil",
+                  "type": "MASS",
+                  "category": "Wet",
+        					"value": 5
+        				},
+        				{
+        					"name": "shallots",
+                  "type": "MASS",
+                  "category": "Meat",
+        					"value": 2
+        				},
+        				{
+        					"name": "garlic",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 2
+        				},
+        				{
+        					"name": "shrimp",
+                  "type": "MASS",
+                  "category": "Meat",
+        					"value": 1
+        				},
+        				{
+        					"name": "kosher salt",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 1
+        				},
+        				{
+        					"name": "black pepper",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 1
+        				},
+        				{
+        					"name": "dry white wine",
+                  "type": "MASS",
+                  "category": "Wet",
+        					"value": 0.5
+        				},
+        				{
+        					"name": "lemon",
+                  "type": "MASS",
+                  "category": "Fruit",
+        					"value": 1
+        				},
+        				{
+        					"name": "parsley",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 0.25
+          				}]
         }
     ]
 }

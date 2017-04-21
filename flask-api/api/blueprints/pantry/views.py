@@ -18,8 +18,8 @@ class IngredientsResource(Resource):
 
 
     def patch(self):
-        """ 
-        Change the amount of an ingredient in the pantry 
+        """
+        Change the amount of an ingredient in the pantry
         Works for existing ingredients or new ingredients
         Checks for valid User and Ingredients
             - returns status 'fail' otherwise
@@ -37,7 +37,7 @@ class IngredientsResource(Resource):
                 return make_response(jsonify(responseObject), 202)
 
             patch_data = request.get_json()
-
+            print(patch_data)
             for entry in patch_data.get("ingredients"):
 
                 ingredient = Ingredient.query.filter(Ingredient.name == entry.get('ingredient_name')).first()
@@ -51,7 +51,7 @@ class IngredientsResource(Resource):
                     return make_response(jsonify(responseObject), 202)
 
                 p_i = PantryIngredient.query.filter( (PantryIngredient.user_id == g.user_id) & (PantryIngredient.ingredient_id == ingredient.id) ).first()
-                
+
                 if p_i:
                     p_i.value = entry['value']
                 else:
@@ -74,7 +74,7 @@ class IngredientsResource(Resource):
 
 
     def get(self):
-        """ 
+        """
         Get a list all of the ingredients
         """
 
@@ -85,7 +85,7 @@ class IngredientsResource(Resource):
                 ingredientsObject = []
                 for i in pantry_ingredients:
                     ingredient = Ingredient.query.filter(Ingredient.id == i.ingredient_id).first()
-                    ingredientsObject.append({'name': ingredient.name, 'type': ingredient.measurement.value, 'value': i.value, "category": ingredient.category.value}) 
+                    ingredientsObject.append({'name': ingredient.name, 'type': ingredient.measurement.value, 'value': i.value, "category": ingredient.category.value})
 
                 responseObject = {
                     'status': 'success',

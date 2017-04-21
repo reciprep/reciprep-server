@@ -1,71 +1,502 @@
 {
-	"Recipes":
-			[
-
-				{
-					"id": 1,
-					"name": "Chicken Parmesan",
-					"IngredientList": [1, 2, 3, 4, 5],
-					"ingredients":[{"name": "Chicken", "value": 3}, {"name": "Penne", "value": 1.5}, {"name": "Shredded Mozzerela Cheese", "value": 1}, {"name": "Salt", "value": 5}, {"name": "Chicken", "value": 5}],
-					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
-					"description": "A simple, delicious recipe for Chicken Parmesan",
-					"steps": ["Boil Water", "Cook chicken in pan", "Put penne in boiling water", "Simmer cooked chicken and penne in tomata sauce and cheese", "Serve while hot"],
-					"rating": 2.5
+	"Recipes": [{
+			"id": 1,
+			"name": "Artichoke Hummus",
+			"ingredients": [{
+					"name": "garbanzo beans",
+					"value": 15
 				},
-
 				{
-					"id": 2,
-					"name": "Poor Man's Soup",
-					"IngredientList": [4, 5, 8, 6],
-					"ingredients":[{"name": "Salt", "value": 5}, {"name": "Basil", "value": 3}, {"name": "Rice", "value": 10}, {"name": "Chicken Broth", "value": 5}],
-					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
-					"description": "Tasty soup on a budget",
-					"steps": ["Boil Water", "Cook rice", "Put rice into chicken broth", "Top with salt and basil"],
-					"rating": 3.6
+					"name": "artichoke hearts",
+					"value": 6
 				},
-
 				{
-					"id": 3,
-					"name": "Poor Man's Saute",
-					"IngredientList": [9, 10, 11],
-					"ingredients":[{"name": "Onion", "value": 2.2}, {"name": "Potato", "value": 3}, {"name": "Butter", "value": 1}],
-					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
-					"description": "All you need are potatoes and onions",
-					"steps": ["Heat pan", "Chop potatoes", "Chop onions", "Cook in pan for 10 min", "Serve hot"],
-					"rating": 1.5
+					"name": "garlic",
+					"value": 1
 				},
-
 				{
-					"id": 4,
-					"name": "Chocolate Chip Cookies",
-					"IngredientList": [11, 12, 13, 14, 15, 16, 21, 17, 18],
-					"ingredients":
-						[
-							{"name": "Butter", "value": 5},
-						 	{"name": "Brown Sugar", "value": 5},
-							{"name": "Vanilla", "value": 5},
-							{"name": "Nuts", "value": 5},
-							{"name": "Flour", "value": 5},
-							{"name": "Salt", "value": 5},
-							{"name": "Granulated Sugar", "value": 5},
-							{"name": "Egg", "value": 5},
-							{"name": "Baking Soda", "value": 5}
-						],
-					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
-					"description": "Grandma's favorite!",
-					"steps": ["Heat oven", "Mix everything into bowl", "Make little balls of cookie dough and place on baking sheet", "Bake for 11-12 minutes"],
-					"rating": 5.0
+					"name": "tahini",
+					"value": 2
 				},
-
 				{
-					"id": 5,
-					"name": "Bacon Pizza",
-					"IngredientList": [19, 20, 3],
-					"ingredients":[{"name": "Pizza Dough", "value": 5}, {"name": "Bacon", "value": 5}, {"name": "Shredded Mozzerela Cheese", "value": 5}],
-					"image": "http://www.skinnytaste.com/wp-content/uploads/2012/09/skinny-chicken-parmigiana-550x733.jpg9",
-					"description": "A simple, delicious recipe for Chicken Parmesan",
-					"steps": ["Heat oven to 400", "Flatten pizza dough", "Put cheese and bacon on top", "Bake for 30 minutes.", "Serve in 5 minutes"],
-					"rating": 2.1
+					"name": "lemon",
+					"value": 0.5
+				},
+				{
+					"name": "extra virgin olive oil",
+					"value": 2
+				},
+				{
+					"name": "water",
+					"value": 0.25
+				},
+				{
+					"name": "kosher salt",
+					"value": 0.5
 				}
-			]
+			],
+			"image": "http://pinchmysalt.com/wp-content/uploads/2009/06/img_5498-version-2.jpg",
+			"description": "A great way to make homemade hummus, perfect with food such as crackers to naan!",
+			"steps": ["1) In a food processor, combine garbanzo beans, artichoke hearts, garlic, tahini, lemon juice, and olive oil. ",
+				"Process until smooth, adding water to thin if necessary. Add salt and Sriracha (if using) to taste. Extra lemon juice or tahini may also be added to taste.",
+				"Spoon hummus onto a plate, creating a bit of a well in the center. Drizzle with olive oil and garnish with fresh chopped parsley.",
+				"Serve with your favorite flat bread, crackers, chips, or fresh vegetables."
+			],
+			"rating": 4.3
+		},
+		{
+			"id": 2,
+			"name": "Chipotle Bacon Deviled Eggs",
+			"ingredients": [{
+					"name": "eggs",
+					"value": 12
+				},
+				{
+					"name": "mayonnaise",
+					"value": 0.5
+				},
+				{
+					"name": "Dijon mustard",
+					"value": 2
+				},
+				{
+					"name": "white wine vinegar",
+					"value": 2
+				},
+				{
+					"name": "chipotle chile powder",
+					"value": 1
+				},
+				{
+					"name": "garlic powder",
+					"value": 0.25
+				},
+				{
+					"name": "thick-cut bacon",
+					"value": 6
+				}
+			],
+			"image": "http://pinchmysalt.com/wp-content/uploads/2011/05/IMG_6143.jpg",
+			"description": "Make these delish deviled eggs for Easter. Great for barbecues!",
+			"steps": ["Cut eggs in half.  Arrange egg whites cut side up on a serving plate and put the yolks in a small mixing bowl.",
+				"Mash yolks with a fork then stir in mayonnaise, mustard, vinegar, chipotle chile, and garlic powder.  Mash and stir all ingredients together well.",
+				"Stir in chopped bacon, reserving some pieces to garnish the top of the eggs if desired. Taste and add salt if necessary.",
+				"Spoon some of the filling into each egg white half, dividing the mixture as evenly as possible between the eggs.",
+				"Sprinkle eggs with smoked paprika and garnish with bacon pieces.",
+				"Serve immediately or refrigerate until ready to serve."
+			],
+			"rating": 4.8
+		},
+		{
+			"id": 3,
+			"name": "Pumpkin Spice Cream Cheese Spread Recipe",
+			"ingredients": [{
+					"name": "cream cheese",
+					"value": 4
+				},
+				{
+					"name": "brown sugar",
+					"value": 3
+				},
+				{
+					"name": "pure maple syrup",
+					"value": 2
+				},
+				{
+					"name": "canned pumpkin",
+					"value": 0.25
+				},
+				{
+					"name": "pumpkin pie spice",
+					"value": 0.5
+				},
+				{
+					"name": "cinnamon",
+					"value": 0.25
+				},
+				{
+					"name": "vanilla extract",
+					"value": 0.25
+				}
+			],
+			"image": "http://pinchmysalt.com/wp-content/uploads/2008/09/img_0859-version-2.jpg",
+			"description": "This cream cheese spread can turn an ordinary snack into something really special, without the guilt associated with some of our other favorite treats.",
+			"steps": ["1) In a small bowl, beat softened cream cheese, sugar, and syrup until smooth and creamy",
+				"2)  Add pumpkin, spices and vanilla and beat til smooth.",
+				"3) Refrigerate for at least an hour.",
+				"4) Enjoy!"
+			],
+			"rating": 4.0
+		},
+		{
+			"id": 4,
+			"name": "Best Banana Muffins",
+			"ingredients": [{
+					"name": "whole wheat flour",
+					"value": 1.5
+				},
+				{
+					"name": "oat bran",
+					"value": 0.5
+				},
+				{
+					"name": "pecan meal",
+					"value": 0.5
+				},
+				{
+					"name": "baking powder",
+					"value": 2
+				},
+				{
+					"name": "baking soda",
+					"value": 1
+				},
+				{
+					"name": "salt",
+					"value": 0.5
+				},
+				{
+					"name": "butter",
+					"value": 2
+				},
+				{
+					"name": "honey",
+					"value": 0.5
+				},
+				{
+					"name": "egg whites",
+					"value": 3
+				},
+				{
+					"name": "banana",
+					"value": 1
+				},
+				{
+					"name": "buttermilk",
+					"value": 0.67
+				}
+			],
+			"image": "http://pinchmysalt.com/wp-content/uploads/2008/09/img_0859-version-2.jpg",
+			"description": "This cream cheese spread can turn an ordinary snack into something really special, without the guilt associated with some of our other favorite treats.",
+			"steps": ["1) In a small bowl, beat softened cream cheese, sugar, and syrup until smooth and creamy",
+				"2)  Add pumpkin, spices and vanilla and beat til smooth.",
+				"3) Refrigerate for at least an hour.",
+				"4) Enjoy!"
+			],
+			"rating": 4.0
+		},
+		{
+			"id": 5,
+			"name": "Whole Grain Sour Cream Blueberry Pancakes",
+			"ingredients": [{
+					"name": "whole wheat flour",
+					"value": 1.5
+				},
+				{
+					"name": "wheat germ",
+					"value": 0.25
+				},
+				{
+					"name": "oat bran",
+					"value": 0.5
+				},
+				{
+					"name": "baking powder",
+					"value": 2
+				},
+				{
+					"name": "baking soda",
+					"value": 1
+				},
+				{
+					"name": "salt",
+					"value": 0.5
+				},
+				{
+					"name": "brown sugar",
+					"value": 2
+				},
+				{
+					"name": "butter",
+					"value": 2
+				},
+				{
+					"name": "honey",
+					"value": 0.5
+				},
+				{
+					"name": "egg whites",
+					"value": 3
+				},
+				{
+					"name": "blueberries",
+					"value": 1
+				},
+				{
+					"name": "buttermilk",
+					"value": 0.67
+				}
+			],
+			"image": "http://pinchmysalt.wordpress.com/files/2006/09/blueberry-pancakes-on-griddle.jpg",
+			"description": "These pancakes are good for you in the sense that they offer a good amount of fiber and protein compared to a traditional pancake.",
+			"steps": ["1) In a large bowl, whisk together all dry ingredients.",
+				"2) In a separate bowl whisk together, milk, sour cream and eggs.",
+				"3) Pour wet ingredients into dry ingredients and mix with a wooden spoon until just combined. Stir in melted butter and blueberries.",
+				"4) Drop pancake batter by 1/4 cupfuls (I just use a 1/4 dry measuring cup) onto a hot, greased griddle.",
+				"5) Pancakes are ready to flip when the edges stary to dry out and darken.",
+				"6) Enjoy!"
+			],
+			"rating": 4.0
+		},
+		{
+			"id": 6,
+			"name": "Spinach Pomegranate Salad with Bacon, Apples, and Walnuts",
+			"ingredients": [{
+					"name": "pomegranate juice",
+					"value": 0.5
+				},
+				{
+					"name": "balsamic vinegar",
+					"value": 1
+				},
+				{
+					"name": "Dijon mustard",
+					"value": 1
+				},
+				{
+					"name": "honey",
+					"value": 1
+				},
+				{
+					"name": "vegetable oil",
+					"value": 0.5
+				},
+				{
+					"name": "baby spinach leaves",
+					"value": 4
+				},
+				{
+					"name": "apple",
+					"value": 1
+				},
+				{
+					"name": "pomegranate seeds",
+					"value": 0.33
+				},
+				{
+					"name": "toasted walnuts",
+					"value": 0.33
+				},
+				{
+					"name": "cooked crumbled bacon",
+					"value": 4
+				},
+				{
+					"name": "blue cheese",
+					"value": 2
+				},
+				{
+					"name": "pomegranate vinaigrette",
+					"value": 0.33
+				}
+			],
+			"image": "http://pinchmysalt.com/wp-content/uploads/2010/10/IMG_11101.jpg",
+			"description": "The delicious salad is dressed with a simple, sweet and tart pomegranate balsamic vinaigrette that perfectly blends the flavors together.",
+			"steps": ["1) Make the dressing: In a medium bowl, whisk together pomegranate juice, balsamic vinegar, mustard, and honey.",
+				"2) Slowly drizzle in the oil, whisking constantly, until it's all incorporated. Season to taste with salt and pepper.",
+				"3) Reserve 1/3 cup for salad and store the rest in the refrigerator.",
+				"4) Make the salad: toss all ingredients in a large bowl. Serve immediately."
+			],
+			"rating": 5.0
+		},
+		{
+			"id": 7,
+			"name": "Creamy Spinach Soup",
+			"ingredients": [{
+					"name": "olive oil",
+					"value": 2
+				},
+				{
+					"name": "onion",
+					"value": 1
+				},
+				{
+					"name": "carrots",
+					"value": 2
+				},
+				{
+					"name": "hot peppers",
+					"value": 2
+				},
+				{
+					"name": "garlic cloves",
+					"value": 2
+				},
+				{
+					"name": "potatoes",
+					"value": 2
+				},
+				{
+					"name": "chicken stock",
+					"value": 4
+				},
+				{
+					"name": "spinach",
+					"value": 10
+				},
+				{
+					"name": "parsley",
+					"value": 0.25
+				},
+				{
+					"name": "thyme",
+					"value": 0.5
+				},
+				{
+					"name": "cream",
+					"value": 0.5
+				}
+			],
+			"image": "http://pinchmysalt.files.wordpress.com/2007/05/spinach-soup-for-web.jpg",
+			"description": "Like most of my recipes, this soup is very flexible.",
+			"steps": ["1) Saute onion, carrots and pepper in olive oil until just starting to brown.",
+				"2) Add garlic and cook, stirring, for one minute.",
+				"3) Add broth and potatoes, bring to a boil. Turn heat down then cover and simmer for about 20 minutes or until potatoes are tender.",
+				"4) Add spinach, parsley and thyme; cook for another five minutes.",
+				"5) Puree in blender or food processor (in batches if necessary) or put through a food mill.",
+				"6) Return to pot. Add salt and pepper to taste then stir in cream and cook, stirring, over low heat until heated through."
+			],
+			"rating": 4.5
+		},
+		{
+			"id": 8,
+			"name": "Blue Cheese Stuffed Hamburgers",
+			"ingredients": [{
+					"name": "cream chesse",
+					"value": 2
+				},
+				{
+					"name": "blue cheese",
+					"value": 2
+				},
+				{
+					"name": "onion powder",
+					"value": 0.125
+				},
+				{
+					"name": "parsley",
+					"value": 1
+				},
+				{
+					"name": "ground beef",
+					"value": 1
+				}
+			],
+			"image": "http://pinchmysalt.com/wp-content/uploads/2007/11/img_7348-version-2.jpg",
+			"description": "All the credit for these goes to my friend Ron. He’s famous throughout California’s central valley for his blue cheese burgers! ",
+			"steps": [
+				"1) In a small bowl, mash together cream cheese and blue cheese then stir in the onion powder and parsley. Taste and season with salt and pepper.",
+				"2) Divide ground beef into 8 equal pieces. I first divide it into four pieces then divide each piece again. Form the pieces into balls then sprinkle the balls lightly with salt and pepper, rolling them around a bit to make sure all sides are covered. Flatten each ball to form thin patties of equal size. I find it easiest to form the patties on a sheet of waxed paper.",
+				"3) To fill burgers, place a tablespoonful of cream cheese mixture in the center of each of four patties. Spread the filling out evenly to within half an inch of the edge of each patty. Place the remaining patties on top to form four filled burgers. Gently press the edges of each burger together to form a seal.",
+				"4) Sprinkle burgers liberally with coarsely ground black pepper (optional).",
+				"5) Prepare your grill and cook burgers until the internal temperature reaches 160 degrees (USDA recommendation) or until desired degree of doneness. Let rest for ten minutes.",
+				"6) Enjoy!"
+			],
+			"rating": 4.5
+		},
+		{
+			"id": 9,
+			"name": "Pan Seared Salmon",
+			"ingredients": [{
+					"name": "salmon fillet",
+					"value": 1
+				},
+				{
+					"name": "olive oil",
+					"value": 2
+				},
+				{
+					"name": "capers",
+					"value": 2
+				},
+				{
+					"name": "salt",
+					"value": 0.125
+				},
+				{
+					"name": "black pepper",
+					"value": 0.125
+				},
+				{
+					"name": "lemon",
+					"value": 1
+				}
+			],
+			"image": "http://allrecipes.com/recipe/21736/pan-seared-salmon-i/photos/998740/",
+			"description": "Simply seasoned with salt and pepper, these salmon fillets are pan seared with capers, and garnished with slices of lemon.",
+			"steps": [
+				"1) Preheat a large heavy skillet over medium heat for 3 minutes.",
+				"2) Coat salmon with olive oil. Place in skillet, and increase heat to high. Cook for 3 minutes. Sprinkle with capers, and salt and pepper. Turn salmon over, and cook for 5 minutes, or until browned. Salmon is done when it flakes easily with a fork.",
+				"3) Transfer salmon to individual plates, and garnish with lemon slices."
+			],
+			"rating": 4.3
+		},
+		{
+			"id": 10,
+			"name": "Shrimp Scampi",
+			"ingredients": [{
+					"name": "linguine pasta",
+					"value": 16
+				},
+				{
+					"name": "butter",
+					"value": 4
+				},
+				{
+					"name": "extra-virgin olive oil",
+					"value": 5
+				},
+				{
+					"name": "shallots",
+					"value": 2
+				},
+				{
+					"name": "garlic",
+					"value": 2
+				},
+				{
+					"name": "shrimp",
+					"value": 1
+				},
+				{
+					"name": "kosher salt",
+					"value": 1
+				},
+				{
+					"name": "black pepper",
+					"value": 1
+				},
+				{
+					"name": "dry white wine",
+					"value": 0.5
+				},
+				{
+					"name": "lemon",
+					"value": 1
+				},
+				{
+					"name": "parsley",
+					"value": 0.25
+				}
+			],
+			"image": "http://allrecipes.com/recipe/229960/shrimp-scampi-with-pasta/photos/2606852/",
+			"description": "Well-rounded seafood and pasta dish. Good with any pasta; angel hair is less filling.",
+			"steps": [
+				"1) Bring a large pot of salted water to a boil; cook linguine in boiling water until nearly tender, 6 to 8 minutes. Drain.",
+				"2) Melt 2 tablespoons butter with 2 tablespoons olive oil in a large skillet over medium heat. Cook and stir shallots, garlic, and red pepper flakes in the hot butter and oil until shallots are translucent, 3 to 4 minutes. Season shrimp with kosher salt and black pepper; add to the skillet and cook until pink, stirring occasionally, 2 to 3 minutes. Remove shrimp from skillet and keep warm.",
+				"3) Pour white wine and lemon juice into skillet and bring to a boil while scraping the browned bits of food off of the bottom of the skillet with a wooden spoon. Melt 2 tablespoons butter in skillet, stir 2 tablespoons olive oil into butter mixture, and bring to a simmer. Toss linguine, shrimp, and parsley in the butter mixture until coated; season with salt and black pepper. Drizzle with 1 teaspoon olive oil to serve."
+			],
+			"rating": 4.5
+		}
+	]
 }
