@@ -1,7 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify, g
 from flask.views import MethodView
 from flask_restful import Api, Resource, url_for
-
 from api import bcrypt, db
 from api.models.user import User
 from api.models.ingredient import Ingredient, PantryIngredient
@@ -13,6 +12,9 @@ pantry_api = Api(pantry_blueprint)
 class IngredientsResource(Resource):
     """
     Resources for managing ingredients in the User's pantry
+    Retrieves contents of a user's pantry using get() method
+    Modifies the contents of an ingredient in the pantry using patch()
+    Adds a new valid ingredient to the pantry using patch()
     """
     decorators = [is_logged_in]
 
@@ -117,4 +119,6 @@ class IngredientsResource(Resource):
             }
             return make_response(jsonify(responseObject), 400)
 
+
+# Add resource to html address
 pantry_api.add_resource(IngredientsResource, '/api/user/pantry')
