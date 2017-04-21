@@ -8,6 +8,7 @@ from api import app, db, bcrypt
 from api.models.user import User
 from api.models.recipe import Recipe
 
+"""This is where we declare ratings within our database"""
 class Rating(db.Model):
     __tablename__ = 'ratings'
 

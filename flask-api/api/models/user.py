@@ -5,6 +5,8 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.associationproxy import association_proxy
 from api import app, db, bcrypt
 
+"""Within this class we declare the specific requirements for a user within our
+database model for use in our application"""
 class User(db.Model):
     """ User Model for storing user related details """
     __tablename__ = "users"
@@ -18,6 +20,7 @@ class User(db.Model):
     ingredients = association_proxy('user_ingredients', 'ingredient')
     ratings = association_proxy('user_ratings', 'rating')
 
+    """Function to initialize a user once they have been registered"""
     def __init__(self, email, username, password):
         self.email = email
         self.username = username
@@ -26,9 +29,11 @@ class User(db.Model):
         ).decode()
         self.registered_on = datetime.datetime.now()
 
+    """Function to return information about the user"""
     def __repr__(self):
         return '<User %s, %s>' % (self.username, self.email)
 
+    """Function for authorization for a user, encode the user/passsword for auth purposes"""
     def encode_auth_token(self):
         """
         Generates the Auth Token
@@ -51,7 +56,9 @@ class User(db.Model):
         except Exception as e:
             return e
 
+
     @staticmethod
+    """This is where we decode the auth token for use within the app and other things"""
     def decode_auth_token(auth_token):
         """
         Validates the auth token

@@ -8,9 +8,13 @@ from sqlalchemy_searchable import SearchQueryMixin
 from sqlalchemy_utils.types import TSVectorType
 from sqlalchemy_searchable import make_searchable
 
+
 class RecipeQuery(BaseQuery, SearchQueryMixin):
     pass
 
+
+"""This is where we declare recipies within our database and how they are expected to be modled
+within our specific database"""
 class Recipe(db.Model):
     """ Model for storing recipes """
     query_class = RecipeQuery

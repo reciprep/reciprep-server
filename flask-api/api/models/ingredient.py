@@ -6,6 +6,7 @@ from api.models.recipe import Recipe
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.associationproxy import association_proxy
 
+"""Thids is where we declare the categories for our ingredients within our database"""
 class CategoryEnum(Enum):
     MEATS = 'MEATS'
     GRAINS = 'GRAINS'
@@ -15,12 +16,13 @@ class CategoryEnum(Enum):
     DRY = 'DRY'
     DAIRY = 'DAIRY'
     MISC = 'MISC'
-
+"""This is where we declare our measurement types for our database"""
 class MeasurementEnum(Enum):
     MASS = 'MASS'
     VOLUME = 'VOLUME'
     COUNT = 'COUNT'
 
+"""This is where we declare what an ingredient is within our database"""
 class Ingredient(db.Model):
     """ Ingredient model for storing ingredients and their details """
 
@@ -42,6 +44,8 @@ class Ingredient(db.Model):
     def __repr__(self):
         return '<Ingredient %s>' % self.name
 
+"""this is where we delare what a pantry ingredient is, eg the relationship
+between a pantry and an ingredient AKA a users pantry"""
 class PantryIngredient(db.Model):
 
     __tablename__ = 'pantry_ingredients'
@@ -59,6 +63,9 @@ class PantryIngredient(db.Model):
         self.user = user
         self.value = value
 
+
+"""We declare the relationship between ingredients and recipes in the below function
+"""
 class RecipeIngredient(db.Model):
 
     __tablename__ = 'recipe_ingredients'
