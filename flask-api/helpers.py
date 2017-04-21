@@ -9,6 +9,10 @@ from api import db
 """ helper functions """
 
 def ingredient_to_json(ingredient, make_json=True):
+
+    '''
+    Converts ingredient object to JSON format and returns it to caller
+    '''
     obj = {
         'name': ingredient.name,
         'id': ingredient.id,
@@ -22,6 +26,11 @@ def ingredient_to_json(ingredient, make_json=True):
     return obj
 
 def recipe_to_json(recipe, make_json=True, access_db=True, verbose=True):
+
+    '''
+    Converts recipe object to JSON format and returns it to caller
+    '''
+
     if access_db:
         ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id).all()
         ingredientsObject = [{'name': i.ingredient.name, 'measurement': i.ingredient.measurement.name, 'value': i.value} for i in ingredients]
@@ -54,9 +63,19 @@ def recipe_to_json(recipe, make_json=True, access_db=True, verbose=True):
     return recipe_object
 
 def user_to_json(user, make_json=True):
+
+    '''
+    Converts user object to JSON format and returns it to caller
+    '''
+
     pass
 
 def json_to_ingredient(obj, access_db=False):
+
+    '''
+    Converts JSON object representing ingredient and commits it to the database
+    '''
+
     name = obj['name']
     measurement = obj['measurement']
     if measurement not in [m.value for m in list(MeasurementEnum)]:
@@ -86,6 +105,11 @@ def json_to_ingredient(obj, access_db=False):
     return ingredient
 
 def json_to_user(obj, access_db=False):
+
+    '''
+    Converts JSON object representing user and commits it to the database
+    '''
+
     email = obj['email']
     username = obj['username']
     password = obj['password']
@@ -110,6 +134,11 @@ def json_to_user(obj, access_db=False):
     return user
 
 def json_to_recipe(obj, access_db=False, creator=None):
+
+    '''
+    Converts JSON object representing a recipe and commits it to the database
+    '''
+
     name = obj['name']
     description = obj['description']
     steps = obj['steps']
