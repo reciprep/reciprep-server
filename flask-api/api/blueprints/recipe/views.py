@@ -18,7 +18,7 @@ recipe_api = Api(recipe_blueprint)
 
 class SearchResource(Resource):
     """
-    Recipe search resource
+    Resource to Search for recipes that match the user's search criteria
     """
 
     decorators = [is_logged_in]
@@ -26,10 +26,9 @@ class SearchResource(Resource):
     def get(self):
         """
         Search for ingredients that match the user's criteria and pantry contents
-
-        This method is hacked together and should be completely rewritten.
-            Not kidding, it's awful.
-                Seriously.
+        Gets the user ID from the auth token. Then it filters for the ingredients
+        of the User of the auth token. It then finds the recipes the user can make
+        this is sent as a response back to the front end
         """
 
         query = request.args.get('terms')
@@ -102,11 +101,16 @@ class SearchResource(Resource):
 
 class RateResource(Resource):
     """
-    Recipe rating resource
+    Resource to handle Rating Recipes
     """
 
     decorators = [is_logged_in]
 
+    """
+    PUT request takes a recipe id and retrieves the recipe from the database.
+    It then takes the review from the front end and averages the score into the
+    recipe. The new result is sent back to the frontend
+    """
     def put(self, recipe_id):
         try:
             put_data = request.get_json()
@@ -168,11 +172,15 @@ class RateResource(Resource):
 
 class CreateResource(Resource):
     """
-    Recipe creation resource
+    Resource to Create a new Recipe
     """
 
     decorators = [is_logged_in]
 
+    """
+    POST request that takes recipe data from the front end. Given a Name,
+    Rating, Descriptions, Steps the result is committed into the backend.
+    """
     def post(self):
         try:
             post_data = request.get_json()
@@ -213,7 +221,11 @@ class PrepareResource(Resource):
     """
 
     decorators = [is_logged_in]
-
+    """
+    Given a Recipe ID query the database for a recipe, go through the ingredients
+    and verify they exist in the user's pantry. Once that is verifeid remove the
+    ingredients from their pantry
+    """
     def put(self, recipe_id):
         user = g.user
         user_id = g.user_id
@@ -280,7 +292,8 @@ class ModifyResource(Resource):
 
 class DetailsResource(Resource):
     """
-    Recipe details resource
+    Recipe details resource, given a Recipe ID query the database and gather
+    all of the recipe fields. Return this result back to the user
     """
     def get(self, recipe_id):
         try:
