@@ -15,7 +15,9 @@ from tests.helpers.recipe import req_recipe_details, req_search_recipe, req_crea
 
 class TestRecipe(BaseTestCase):
     def test_get_recipe_details(self):
-        """ Test for getting a recipe's details """
+        """ Test for getting a recipe's details, creates a recipe with
+        corresponding ingredients, creates an HTTP request and returns
+        the result of finding the details of the recipe  """
 
         meat = {
             'name': 'Meat',
@@ -72,7 +74,9 @@ class TestRecipe(BaseTestCase):
 
 
     def test_search_recipes(self):
-        """ Test searching for recipes """
+        """ Establishes multiple recipes, creates a request to search through
+        the recipes and return specific terms, verifeis that a specific recipe
+        is returned"""
 
         meat = {
             'name': 'Meat',
@@ -171,7 +175,8 @@ class TestRecipe(BaseTestCase):
             self.assertEqual(len(data['data']['recipes']), 2)
 
     def test_create_recipe(self):
-        """ Test user creating a recipe """
+        """ Creates a new recipe, sends a request to create the new recipe
+        and verifies the result is seen in the backend"""
 
         meat = {
             'name': 'Meat',
@@ -226,7 +231,9 @@ class TestRecipe(BaseTestCase):
         pass
 
     def test_prepare_recipe(self):
-        """ Test user cooking a recipe """
+        """Creates a recipe with multiple ingredients, sends the recipe ID in a
+        request. Verifeis that the correct ingredietns are taken out of the
+        database for the user"""
         meat = {
             'name': 'Meat',
             'measurement': 'MASS',
@@ -296,7 +303,8 @@ class TestRecipe(BaseTestCase):
 
 
     def test_rate_recipe(self):
-        """ Test rating a recipe """
+        """Create a new recipe and send a request to add a review to it. Verify
+        that the review properly updated the rating the appropraite amount"""
         meat = {
             'name': 'Meat',
             'measurement': 'MASS',
