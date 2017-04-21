@@ -15,6 +15,16 @@ from api.models.ingredient import Ingredient, PantryIngredient
 
 class TestIngredient(BaseTestCase):
 
+    """ 
+    This class contains unit tests pertaining to ingredients in a user's pantry
+    The class creates test JSON objects which are ultimately commited to the database, including:
+        - meat Ingredient
+        - water Ingredient
+        - rootbeer Ingredient
+        - icecream Ingredient
+        - rootbeer _loat Recipe
+        - user_obj User
+    """
 
     meat = {
         'name': 'Meat',
@@ -57,6 +67,14 @@ class TestIngredient(BaseTestCase):
 
     def test_add_new_pantry_ingredients(self):
 
+        '''
+        Adds a new ingredient to the pantry
+        Accepts a JSON object from the specified http address
+        Commits a new user and rootbeer ingredient to the database
+        Adds rootbeer to the user's pantry
+        Checks for successful addition and that the quantity is correct
+        '''
+
         dbrb = json_to_ingredient(self.rootbeer, access_db=True)
         dbic = json_to_ingredient(self.icecream, access_db=True)
         user = json_to_user(self.user_obj, access_db=True)
@@ -74,7 +92,14 @@ class TestIngredient(BaseTestCase):
             p = PantryIngredient.query.filter((PantryIngredient.user_id == u.id) & (PantryIngredient.ingredient_id == i.id)).first()
             self.assertEqual(p.value, 5.0)
 
+
     def test_add_existing_pantry_ingredients(self):
+
+        '''
+        Adds an ingredient that is already present in the pantry
+        Accepts a JSON object from the specified http address
+        Ensures that the addition is successful and that the quantity is correct
+        '''
 
         dbrb = json_to_ingredient(self.rootbeer, access_db=True)
         dbic = json_to_ingredient(self.icecream, access_db=True)
@@ -98,6 +123,12 @@ class TestIngredient(BaseTestCase):
             pan = PantryIngredient.query.filter((PantryIngredient.user_id == use.id) & (PantryIngredient.ingredient_id == ing.id)).first()
             self.assertEqual(pan.value, 7.0)
 
+        '''
+        Tests getting ingredients from a user's pantry
+        Accepts a JSON object from the specified http address, which contains an auth token
+        Ensures that the ingredient quantities are correct and that the JSON object
+        that is returned matches the specified format
+        '''
     def test_get_ingredients(self):
         dbrb = json_to_ingredient(self.rootbeer, access_db=True)
         dbic = json_to_ingredient(self.icecream, access_db=True)
