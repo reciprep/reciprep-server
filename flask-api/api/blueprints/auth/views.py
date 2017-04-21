@@ -13,9 +13,14 @@ auth_api = Api(auth_blueprint)
 class RegisterResource(Resource):
     """
     User Registration Resource
+    Used to register a new user
     """
 
     def post(self):
+
+        '''
+        Add new user information to database
+        '''
         # get the post data
         post_data = request.get_json()
         # check if user already exists
@@ -58,8 +63,13 @@ class RegisterResource(Resource):
 class LoginResource(Resource):
     """
     User Login Resource
+    Used for existing users thathave already created an account
     """
     def post(self):
+
+        '''
+        Log user in after verifying credentials
+        '''
         # get the post data
         post_data = request.get_json()
         try:
@@ -102,6 +112,10 @@ class UserResource(Resource):
     decorators = [is_logged_in]
 
     def get(self):
+
+        '''
+        Sends response back to client based on success of login request
+        '''
         user_id = g.user_id
         user = User.query.filter_by(id=user_id).first()
         responseObject = {
