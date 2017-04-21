@@ -30,3 +30,22 @@ def req_create_recipe(test_case, data, recipe_obj):
         data=json.dumps(recipe_obj),
         content_type='application/json'
     )
+
+def req_prepare_recipe(test_case, data, recipe):
+    return test_case.client.put(
+        '/api/recipe/{}/prepare'.format(recipe.id),
+        headers=dict(
+            Authorization='Bearer ' + data['auth_token']
+        ),
+        content_length=0
+    )
+
+def req_rate_recipe(test_case, data, recipe, value):
+    return test_case.client.put(
+        '/api/recipe/{}/rate'.format(recipe.id),
+        headers=dict(
+            Authorization='Bearer ' + data['auth_token']
+        ),
+        data=json.dumps({'value': value}),
+        content_type='application/json'
+    )

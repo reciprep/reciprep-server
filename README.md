@@ -21,7 +21,7 @@ Initialize the databases:
 docker-compose up postgres &
 bash bin/psql-init
 bash bin/psql-test-init
-docker-compose -f docker-init.yml up
+docker-compose -f docker-init.yml up reciprep-api &
 docker-compose down
 ```
 

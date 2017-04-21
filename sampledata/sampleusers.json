@@ -6,7 +6,7 @@
             "email": "admin@admin.com",
             "password": "admin",
             "admin": true,
-            "ingredients": [{"name": "Chicken", "value": 5}, {"name": "Salt", "value": 5}]
+            "ingredients": [{"name": "Chicken", "type": "MASS", "value": 5, "category": "Meats"}, {"name": "Salt", "type": "MASS", "value": 5, "category": "Dry"}]
         }
     ]
 }

@@ -1,4 +1,5 @@
 import uuid
+import math
 import traceback
 from flask import Blueprint, request, make_response, jsonify, g
 from flask_restful import Api, Resource, url_for, reqparse
@@ -8,6 +9,7 @@ from helpers import recipe_to_json, json_to_recipe
 from api import bcrypt, db
 from api.models.user import User
 from api.models.recipe import Recipe
+from api.models.rating import Rating
 from api.models.ingredient import Ingredient, RecipeIngredient, PantryIngredient
 from api.decorators import is_logged_in
 
@@ -98,10 +100,6 @@ class SearchResource(Resource):
 
             return make_response(jsonify(responseObject), 200)
 
-
-
-
-
 class RateResource(Resource):
     """
     Recipe rating resource
@@ -109,9 +107,63 @@ class RateResource(Resource):
 
     decorators = [is_logged_in]
 
-    def patch(self, recipe_id):
+    def put(self, recipe_id):
+        try:
+            put_data = request.get_json()
+            recipe = Recipe.query.get(recipe_id)
 
-        pass
+            if not recipe:
+                responseObject = {
+                    'status': 'fail',
+                    'message': 'Recipe %s not found.' % recipe_id
+                }
+                return make_response(jsonify(responseObject), 404)
+
+            value = float(put_data['value'])
+
+            rating = Rating.query.filter(Rating.user_id == g.user_id, Rating.recipe_id == recipe.id).first()
+
+            if rating:
+                new_value = (recipe.rating * recipe.num_ratings - recipe.rating + value) / recipe.num_ratings
+                rating.value = value
+                recipe.rating = new_value
+                db.session.commit()
+
+            else:
+                rating = Rating(user=g.user, recipe=recipe, value=value)
+                db.session.add(rating)
+
+            #### POTENTIAL RACE CONDITIONS ###
+                if recipe.num_ratings == 0:
+                    recipe.num_ratings = 1
+                    recipe.rating = value
+                else:
+                    new_rating = (recipe.rating * recipe.num_ratings + value) / (recipe.num_ratings + 1)
+                    recipe.rating = new_rating
+                    recipe.num_ratings = recipe.num_ratings + 1
+                db.session.commit()
+
+            responseObject = {
+                'status': 'success'
+            }
+
+            return make_response(jsonify(responseObject), 200)
+
+        except KeyError:
+            responseObject = {
+                'status': 'fail',
+                'message': 'No rating specified'
+            }
+            return make_response(jsonify(responseObject), 400)
+        except ValueError:
+            responseObject = {
+                'status': 'fail',
+                'message': 'Invalid rating value'
+            }
+            return make_response(jsonify(responseObject), 400)
+        except Exception as e:
+            print(e)
+            traceback.print_exc()
 
 
 class CreateResource(Resource):
@@ -153,9 +205,7 @@ class CreateResource(Resource):
             }
 
             return make_response(jsonify(responseObject), 400)
-        except Exception as e:
-            traceback.print_exc()
-            print(e)
+
 
 class PrepareResource(Resource):
     """
@@ -164,8 +214,56 @@ class PrepareResource(Resource):
 
     decorators = [is_logged_in]
 
-    def get(self, recipe_id):
-        pass
+    def put(self, recipe_id):
+        user = g.user
+        user_id = g.user_id
+
+        recipe = Recipe.query.get(recipe_id)
+
+        if recipe_id is None:
+            responseObject = {
+                'status': 'fail',
+                'message': 'Recipe does not exist.'
+            }
+
+            return make_response(jsonify(responseObject), 404)
+
+        recipe_ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id).all()
+        user_ingredients = PantryIngredient.query.filter(PantryIngredient.user_id == user_id).all()
+
+        user_dict = {}
+
+        for ui in user_ingredients:
+            user_dict[ui.ingredient_id] = ui
+
+        has_all_ingredients = True
+        changed = []
+
+        for ri in recipe_ingredients:
+            ui = user_dict.get(ri.ingredient_id)
+            if ui:
+                if math.isclose(ui.value, 0.0): continue
+                difference = ui.value - ri.value
+                ui.value = different if difference > 0 else 0
+                changed.append(ui)
+            else:
+                has_all_ingredients = False
+        db.session.commit()
+
+        if len(changed) == 0:
+            responseObject = {
+                'status': 'fail',
+                'message': 'User has no ingredients in recipe'
+            }
+
+            return make_response(jsonify(responseObject), 400)
+
+        responseObject = {
+            'status': 'success',
+            'has_all_ingredients': has_all_ingredients
+        }
+
+        return make_response(jsonify(responseObject), 200)
 
 
 class ModifyResource(Resource):

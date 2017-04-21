@@ -8,7 +8,6 @@ from sqlalchemy_searchable import SearchQueryMixin
 from sqlalchemy_utils.types import TSVectorType
 from sqlalchemy_searchable import make_searchable
 
-
 class RecipeQuery(BaseQuery, SearchQueryMixin):
     pass
 
@@ -16,7 +15,7 @@ class Recipe(db.Model):
     """ Model for storing recipes """
     query_class = RecipeQuery
     __tablename__ = 'recipes'
-    
+
     make_searchable()
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4().hex)
@@ -28,6 +27,8 @@ class Recipe(db.Model):
     creator_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
     creator = db.relationship('User', back_populates='created_recipes')
     search_vector = db.Column(TSVectorType('name', 'description'))
+
+    raters = association_proxy('rating_users', 'user')
 
     ingredients = association_proxy('recipe_ingredients', 'ingredient')
 
