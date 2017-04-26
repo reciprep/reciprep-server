@@ -406,6 +406,25 @@
 			"id": 68,
 			"measurement": "VOLUME",
 			"category": "WET"
-		}
+		},
+    {
+      "name": "chicken breast",
+      "id": 69,
+      "measurement": "MASS",
+      "category": "MEATS"
+    },
+    {
+      "name":"clementine",
+      "id":70,
+      "measurement":"MASS",
+      "category":"FRUITS"
+    },
+    {
+      "name":"milk",
+      "id":71,
+      "measurement":"VOLUME",
+      "category":"DAIRY"
+    }
+
 	]
 }
