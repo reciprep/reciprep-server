@@ -115,10 +115,9 @@ def json_to_recipe(obj, access_db=False, creator=None):
     description = obj['description']
     steps = obj['steps']
     rating = obj.get('rating')
-    
-    if obj['image']:
-        image = obj['image']
-    else: image="http://www.novelupdates.com/img/noimagefound.jpg"
+    image = obj.get('image')
+
+    if not image: image="http://www.novelupdates.com/img/noimagefound.jpg"
 
     recipe = None
 

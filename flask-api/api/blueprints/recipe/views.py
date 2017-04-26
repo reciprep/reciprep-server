@@ -230,7 +230,6 @@ class PrepareResource(Resource):
 
         recipe_ingredients = RecipeIngredient.query.filter(RecipeIngredient.recipe_id == recipe.id).all()
         user_ingredients = PantryIngredient.query.filter(PantryIngredient.user_id == user_id).all()
-
         user_dict = {}
 
         for ui in user_ingredients:
@@ -244,12 +243,11 @@ class PrepareResource(Resource):
             if ui:
                 if math.isclose(ui.value, 0.0): continue
                 difference = ui.value - ri.value
-                ui.value = different if difference > 0 else 0
+                ui.value = difference if difference > 0 else 0
                 changed.append(ui)
             else:
                 has_all_ingredients = False
         db.session.commit()
-
         if len(changed) == 0:
             responseObject = {
                 'status': 'fail',
