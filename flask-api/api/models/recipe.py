@@ -22,6 +22,7 @@ class Recipe(db.Model):
     name = db.Column(db.String(255), unique=True, nullable=False)
     description = db.Column(db.Text)
     steps = db.Column(ARRAY(db.Text))
+    image = db.Column(db.String(255), unique=False, nullable=True)
     rating = db.Column(db.Float)
     num_ratings = db.Column(db.Integer, default=0)
     creator_id = db.Column(UUID(as_uuid=True), db.ForeignKey('users.id'))
@@ -32,10 +33,11 @@ class Recipe(db.Model):
 
     ingredients = association_proxy('recipe_ingredients', 'ingredient')
 
-    def __init__(self, name, description=None, steps=None, rating=None, creator=None, creator_id=None):
+    def __init__(self, name, description=None, steps=None, image=None, rating=None, creator=None, creator_id=None):
         self.name = name
         self.description = description
         self.steps = steps
+        self.image = image
         self.rating = rating
         self.creator_id = creator_id
         self.creator = creator

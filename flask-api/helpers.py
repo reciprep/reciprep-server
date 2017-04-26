@@ -45,6 +45,7 @@ def recipe_to_json(recipe, make_json=True, access_db=True, verbose=True):
             'recipe_id': recipe.id,
             'name': recipe.name,
             'description': recipe.description,
+            'image': recipe.image,
             'rating': recipe.rating
         }
 
@@ -114,13 +115,17 @@ def json_to_recipe(obj, access_db=False, creator=None):
     description = obj['description']
     steps = obj['steps']
     rating = obj.get('rating')
+    
+    if obj['image']:
+        image = obj['image']
+    else: image="http://www.novelupdates.com/img/noimagefound.jpg"
 
     recipe = None
 
     if access_db:
         recipe = Recipe.query.filter(Recipe.name == name).first()
     if recipe is None:
-        recipe = Recipe(name=name, description=description, steps=steps, rating=rating)
+        recipe = Recipe(name=name, description=description, steps=steps, image=image, rating=rating)
 
     if creator:
         recipe.creator = creator
