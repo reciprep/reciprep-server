@@ -9,13 +9,19 @@ If you're on Windows, start the Vagrant machine:
 bin/vagrant.bat
 ```
 
-For Linux / OSX / Windows:
+When inside the VM:
+```
+cd /vagrant
+```
 
-Create the databases:
+For Linux / OSX:
+
+Initialize the databases:
 ```
 docker-compose up postgres &
 bash bin/psql-init
 bash bin/psql-test-init
+docker-compose -f docker-init.yml up reciprep-api &
 docker-compose down
 ```
 

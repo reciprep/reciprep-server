@@ -1,0 +1,430 @@
+{
+	"Ingredient": [{
+			"name": "garbanzo beans",
+			"id": 1,
+			"measurement": "MASS",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "artichoke hearts",
+			"id": 2,
+			"measurement": "MASS",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "garlic",
+			"id": 3,
+			"measurement": "COUNT",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "tahini",
+			"id": 4,
+			"measurement": "VOLUME",
+			"category": "MISC"
+		},
+		{
+			"name": "extra virgin olive oil",
+			"id": 5,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "water",
+			"id": 6,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "kosher salt",
+			"id": 7,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "eggs",
+			"id": 8,
+			"measurement": "COUNT",
+			"category": "MEATS"
+		},
+		{
+			"name": "mayonnaise",
+			"id": 9,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "Dijon mustard",
+			"id": 10,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "white wine vinegar",
+			"id": 11,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "chipotle chile powder",
+			"id": 12,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "garlic powder",
+			"id": 13,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "thick-cut bacon",
+			"id": 14,
+			"measurement": "COUNT",
+			"category": "MEATS"
+		},
+		{
+			"name": "cream cheese",
+			"id": 15,
+			"measurement": "MASS",
+			"category": "DAIRY"
+		},
+		{
+			"name": "brown suger",
+			"id": 16,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "pure maple syrup",
+			"id": 17,
+			"measurement": "VOLUME",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "canned pumpkin",
+			"id": 18,
+			"measurement": "VOLUME",
+			"category": "FRUITS"
+		},
+		{
+			"name": "pumpkin pie spice",
+			"id": 19,
+			"measurement": "VOLUME",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "cinnamon",
+			"id": 20,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "vanilla extract",
+			"id": 21,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "whole wheat flour",
+			"id": 22,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "oat bran",
+			"id": 23,
+			"measurement": "VOLUME",
+			"category": "GRAINS"
+		},
+		{
+			"name": "pecan meal",
+			"id": 24,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "baking powder",
+			"id": 25,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "baking soda",
+			"id": 26,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "salt",
+			"id": 27,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "butter",
+			"id": 28,
+			"measurement": "VOLUME",
+			"category": "DAIRY"
+		},
+		{
+			"name": "honey",
+			"id": 29,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "egg whites",
+			"id": 30,
+			"measurement": "COUNT",
+			"category": "MEATS"
+		},
+		{
+			"name": "banana",
+			"id": 31,
+			"measurement": "COUNT",
+			"category": "FRUITS"
+		},
+		{
+			"name": "buttermilk",
+			"id": 32,
+			"measurement": "VOLUME",
+			"category": "DAIRY"
+		},
+		{
+			"name": "pomegranate juice",
+			"id": 33,
+			"measurement": "VOLUME",
+			"category": "FRUITS"
+		},
+		{
+			"name": "balsamic vinegar",
+			"id": 34,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "vegetable oil",
+			"id": 35,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "baby spinach leaves",
+			"id": 36,
+			"measurement": "VOLUME",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "apple",
+			"id": 37,
+			"measurement": "COUNT",
+			"category": "FRUITS"
+		},
+		{
+			"name": "pomegranate seeds",
+			"id": 38,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "toasted walnuts",
+			"id": 39,
+			"measurement": "VOLUME",
+			"category": "FRUITS"
+		},
+		{
+			"name": "cooked crumbled bacon",
+			"id": 40,
+			"measurement": "COUNT",
+			"category": "MEATS"
+		},
+		{
+			"name": "blue cheese",
+			"id": 41,
+			"measurement": "MASS",
+			"category": "DAIRY"
+		},
+		{
+			"name": "pomegranate vinaigrette",
+			"id": 42,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "onion",
+			"id": 43,
+			"measurement": "COUNT",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "carrots",
+			"id": 44,
+			"measurement": "COUNT",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "hot peppers",
+			"id": 45,
+			"measurement": "COUNT",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "garlic cloves",
+			"id": 46,
+			"measurement": "VOLUME",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "potatoes",
+			"id": 47,
+			"measurement": "COUNT",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "chicken stock",
+			"id": 48,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+		{
+			"name": "spinach",
+			"id": 49,
+			"measurement": "MASS",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "parsley",
+			"id": 50,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "thyme",
+			"id": 51,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "cream",
+			"id": 52,
+			"measurement": "VOLUME",
+			"category": "DAIRY"
+		},
+		{
+			"name": "cream cheese",
+			"id": 53,
+			"measurement": "MASS",
+			"category": "DAIRY"
+		},
+		{
+			"name": "blue cheese",
+			"id": 54,
+			"measurement": "MASS",
+			"category": "DAIRY"
+		},
+		{
+			"name": "onion powder",
+			"id": 55,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "ground beef",
+			"id": 56,
+			"measurement": "MASS",
+			"category": "MEATS"
+		},
+		{
+			"name": "salmon fillet",
+			"id": 57,
+			"measurement": "COUNT",
+			"category": "MEATS"
+		},
+		{
+			"name": "capers",
+			"id": 58,
+			"measurement": "VOLUME",
+			"category": "MISC"
+		},
+		{
+			"name": "salt",
+			"id": 59,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "black pepper",
+			"id": 60,
+			"measurement": "VOLUME",
+			"category": "DRY"
+		},
+		{
+			"name": "lemon",
+			"id": 61,
+			"measurement": "COUNT",
+			"category": "FRUITS"
+		},
+		{
+			"name": "linguine pasta",
+			"id": 62,
+			"measurement": "MASS",
+			"category": "GRAINS"
+		},
+		{
+			"name": "shallots",
+			"id": 63,
+			"measurement": "COUNT",
+			"category": "VEGETABLES"
+		},
+		{
+			"name": "shrimp",
+			"id": 64,
+			"measurement": "MASS",
+			"category": "MEATS"
+		},
+		{
+			"name": "dry white wine",
+			"id": 65,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+	    {
+			"name": "wheat germ",
+			"id": 66,
+			"measurement": "VOLUME",
+			"category": "GRAINS"
+		},
+	    {
+			"name": "blueberries",
+			"id": 67,
+			"measurement": "VOLUME",
+			"category": "FRUITS"
+		},
+		{
+			"name": "olive oil",
+			"id": 68,
+			"measurement": "VOLUME",
+			"category": "WET"
+		},
+    {
+      "name": "chicken breast",
+      "id": 69,
+      "measurement": "MASS",
+      "category": "MEATS"
+    },
+    {
+      "name":"clementine",
+      "id":70,
+      "measurement":"MASS",
+      "category":"FRUITS"
+    },
+    {
+      "name":"milk",
+      "id":71,
+      "measurement":"VOLUME",
+      "category":"DAIRY"
+    }
+
+	]
+}

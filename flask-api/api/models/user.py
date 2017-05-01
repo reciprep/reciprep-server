@@ -1,18 +1,22 @@
 import jwt
 import datetime
-
+import uuid
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.ext.associationproxy import association_proxy
 from api import app, db, bcrypt
-
 
 class User(db.Model):
     """ User Model for storing user related details """
     __tablename__ = "users"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=lambda: uuid.uuid4().hex)
     email = db.Column(db.String(255), unique=True, nullable=False)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     registered_on = db.Column(db.DateTime, nullable=False)
+    created_recipes = db.relationship('Recipe', back_populates='creator')
+    ingredients = association_proxy('user_ingredients', 'ingredient')
+    ratings = association_proxy('user_ratings', 'rating')
 
     def __init__(self, email, username, password):
         self.email = email
@@ -22,7 +26,10 @@ class User(db.Model):
         ).decode()
         self.registered_on = datetime.datetime.now()
 
-    def encode_auth_token(self, user_id):
+    def __repr__(self):
+        return '<User %s, %s>' % (self.username, self.email)
+
+    def encode_auth_token(self):
         """
         Generates the Auth Token
         :return: string
@@ -34,7 +41,7 @@ class User(db.Model):
                     seconds=app.config.get('JWT_EXPIRATION_SECONDS')
                 ),
                 'iat': datetime.datetime.utcnow(),
-                'sub': user_id
+                'sub': self.id.hex
             }
             return jwt.encode(
                 payload,
@@ -49,7 +56,7 @@ class User(db.Model):
         """
         Validates the auth token
         :param auth_token:
-        :return: integer|string
+        :return: string
         """
         try:
             payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))

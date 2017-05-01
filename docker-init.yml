@@ -6,17 +6,19 @@ services:
         volumes:
             - ./flask-api:/usr/src/app
             - ./sampledata:/usr/src/sampledata
-        command: "/bin/bash -c \"cd /usr/src/app && pip install -r requirements.txt && python -u manager.py test\""
+        command: "/bin/bash -c \"cd /usr/src/app && \
+                    pip install -r requirements.txt && \
+                    python -u manager.py create_db\""
         depends_on:
             - postgres
-            # - nginx
+            - nginx
     postgres:
         image: postgres:alpine
         network_mode: host
         volumes:
             - ./dbdata:/var/lib/postgresql/data
-    # nginx:
-    #     image: nginx:alpine
-    #     network_mode: host
-    #     volumes:
-    #         - ./nginx:/etc/nginx
+    nginx:
+        image: nginx:alpine
+        network_mode: host
+        volumes:
+            - ./nginx:/etc/nginx

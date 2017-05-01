@@ -11,7 +11,7 @@ class BaseConfig:
     BCRYPT_LOG_ROUNDS = 13
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_EXPIRATION_DAYS = 0
-    JWT_EXPIRATION_SECONDS = 60
+    JWT_EXPIRATION_SECONDS = 6000
 
 
 class DevelopmentConfig(BaseConfig):
@@ -27,6 +27,7 @@ class TestingConfig(BaseConfig):
     BCRYPT_LOG_ROUNDS = 4
     SQLALCHEMY_DATABASE_URI = postgres_local_base + database_name + '_test'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
+    LIVESERVER_PORT = 80
 
 
 # class ProductionConfig(BaseConfig):

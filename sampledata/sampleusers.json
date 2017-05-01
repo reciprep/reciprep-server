@@ -1,0 +1,109 @@
+{
+    "Users" :
+    [
+        {
+            "username": "admin",
+            "email": "admin@admin.com",
+            "password": "admin",
+            "admin": true,
+            "ingredients": [{"name": "cream chesse", "type": "MASS", "category": "Dairy", "value": 2},
+              {"name": "blue cheese","type": "MASS", "category":"Dairy","value": 2},{"name": "onion powder","type": "MASS", "category": "Dairy","value": 0.125},
+              {"name": "parsley","type": "MASS","value": 1},{"name": "ground beef","type": "MASS","value": 1},{"name": "salmon fillet","type": "MASS","category": "Meat","value": 1},
+        			{"name": "olive oil","type": "MASS","category": "Wet","value": 2},{"name": "capers","type": "MASS","category": "Dry","value": 2	},
+              {"name": "salt","type": "MASS","category":"Dry","value": 0.125},
+        				{
+        					"name": "black pepper",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 0.125
+        				},
+        				{
+        					"name": "lemon",
+                  "type": "MASS",
+                  "category": "Fruit",
+        					"value": 1
+        				},
+                {
+        					"name": "linguine pasta",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 16
+        				},
+        				{
+        					"name": "butter",
+                  "type": "MASS",
+                  "category": "Dairy",
+        					"value": 4
+        				},
+        				{
+        					"name": "extra-virgin olive oil",
+                  "type": "MASS",
+                  "category": "Wet",
+        					"value": 5
+        				},
+        				{
+        					"name": "shallots",
+                  "type": "MASS",
+                  "category": "Meat",
+        					"value": 2
+        				},
+        				{
+        					"name": "garlic",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 2
+        				},
+        				{
+        					"name": "shrimp",
+                  "type": "MASS",
+                  "category": "Meat",
+        					"value": 1
+        				},
+        				{
+        					"name": "kosher salt",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 1
+        				},
+        				{
+        					"name": "black pepper",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 1
+        				},
+        				{
+        					"name": "dry white wine",
+                  "type": "MASS",
+                  "category": "Wet",
+        					"value": 0.5
+        				},
+        				{
+        					"name": "lemon",
+                  "type": "MASS",
+                  "category": "Fruit",
+        					"value": 1
+        				},
+        				{
+        					"name": "parsley",
+                  "type": "MASS",
+                  "category": "Dry",
+        					"value": 0.25
+          				}]
+        },
+        {
+            "username": "reciprep_fan",
+            "email": "reciprep_fan@gmail.com",
+            "password": "reciprep",
+            "admin": true,
+            "ingredients": [{"name":"cream cheese","value":2,"type":"MASS","category":"Dairy"},{"name":"blue cheese","value":2,"type":"MASS","category":"Dairy"},
+              {"name":"onion powder","value":0.5,"type":"MASS","category":"Dry"},{"name":"parsley","value":2,"type":"MASS","category":"Dry"},{"name":"ground beef","value":2,"type":"MASS","category":"Meat"},
+              {"name":"salmon fillet","value":1,"type":"MASS","category":"Meat"},{"name":"olive oil","value":2,"type":"MASS","category":"Wet"},{"name":"capers","value":2,"type":"MASS","category":"Dry"},
+              {"name":"salt","value":1,"type":"MASS","category":"Dry"},{"name":"black pepper","value":2,"type":"MASS","category":"Dry"},
+              {"name":"lemon","value":2,"type":"MASS","category":"Fruit"},{"name":"chicken breast","value":4,"type":"MASS","category":"Meat"},
+              {"name":"clementine","value":4,"type":"MASS","category":"Fruit"},{"name":"linguine pasta","value":16,"type":"MASS","category":"Grain"},{"name":"butter","value":4,"type":"MASS","category":"Dairy"},
+              {"name":"extra-virgin olive oil","value":5,"type":"MASS","category":"Wet"},{"name":"shallots","value":2,"type":"MASS","category":"Vegetable"},{"name":"garlic","value":2,"type":"MASS","category":"Vegetable"},
+              {"name":"shrimp","value":1,"type":"MASS","category":"Meat"},{"name":"kosher salt","value":1,"type":"MASS","category":"Dry"},{"name":"dry white wine","value":1,"type":"MASS","category":"Wet"},
+              {"name":"milk","value":10,"type":"MASS","category":"Dairy"}]
+        }
+    ]
+}
